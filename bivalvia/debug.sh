@@ -1,5 +1,7 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/string.sh
+
+source ${BIVALVIA_PATH}/string.sh
 
 
 function stack_trace {

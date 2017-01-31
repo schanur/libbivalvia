@@ -1,3 +1,8 @@
+BIVALVIA_PATH="${0}"
+
+
+source ${BIVALVIA_PATH}/io.sh
+
 
 declare -a GL_SECTION_POS_START
 declare -a GL_SECTION_POS_END
@@ -72,6 +77,7 @@ function print_section {
     local SCRIPT_NAME=${1}
     local SECTION_NUMBER=${2}
     local SECTION_LENGTH=$(expr ${GL_SECTION_POS_END[${SECTION_NUMBER}]} - ${GL_SECTION_POS_START[${SECTION_NUMBER}]} + 1)
+
 
     cat ${SCRIPT_NAME} |tail -n +${GL_SECTION_POS_START[${SECTION_NUMBER}]} |head -n ${SECTION_LENGTH} |sed -e 's/^#\ //g' | sed -e 's/^#//g'
 }

@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 # Prints a number only timestamp in the format YYYYMMDDhhmmss.
 function timestamp {

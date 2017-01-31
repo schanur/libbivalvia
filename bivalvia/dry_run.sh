@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 DRY_RUN="0"
 

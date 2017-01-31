@@ -1,5 +1,7 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/error.sh
+
+source ${BIVALVIA_PATH}/error.sh
 
 
 function find_parallel_tool {

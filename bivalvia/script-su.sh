@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 function run_as_root {
     if [ "${USER}" != "root" ]; then

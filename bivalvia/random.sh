@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 # Valid input is 1, 2, 4, 8.
 function random_n_byte_decimal {

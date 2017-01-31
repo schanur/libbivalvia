@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 function installed_deb_packages {
     dpkg -l -- \

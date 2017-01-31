@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 # "a bcd ef" => "3"
 function longest_string_length {

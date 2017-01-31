@@ -1,5 +1,7 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/error.sh
+
+source ${BIVALVIA_PATH}/error.sh
 
 # Sets the global variable GL_STR_MATCH to the number of times the
 # string was found in the file given by parameter 1.

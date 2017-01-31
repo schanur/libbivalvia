@@ -1,6 +1,8 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/config.sh
-source ${DOTFILES_PATH}/lib/bash/require.sh
+
+source ${BIVALVIA_PATH}/config.sh
+source ${BIVALVIA_PATH}/require.sh
 
 
 # CACHE_PATH="${HOME}/.cache/dotfiles"

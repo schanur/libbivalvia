@@ -1,3 +1,5 @@
+BIVALVIA_PATH="${0}"
+
 
 function is_number {
     local IS_NUMBER=0

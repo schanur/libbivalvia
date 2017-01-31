@@ -1,11 +1,13 @@
+BIVALVIA_PATH="${0}"
+
 
 # function user_has_profile_path {
 #     local PATH_EXIST
 #     local HOSTNAME=$(hostname)
 # }
 
-source ${DOTFILES_PATH}/lib/bash/require.sh
-source ${DOTFILES_PATH}/lib/bash/csv.sh
+source ${BIVALVIA_PATH}/require.sh
+source ${BIVALVIA_PATH}/csv.sh
 
 
 # CONFIG_PATH=${DOTFILES_PATH}/config

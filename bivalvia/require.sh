@@ -1,6 +1,8 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/debug.sh
-source ${DOTFILES_PATH}/lib/bash/numerical.sh
+
+source ${BIVALVIA_PATH}/debug.sh
+source ${BIVALVIA_PATH}/numerical.sh
 
 function require_failed {
     echo "Abort!" >&2

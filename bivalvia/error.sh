@@ -1,5 +1,7 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/debug.sh
+
+source ${BIVALVIA_PATH}/debug.sh
 
 
 function critical_error {

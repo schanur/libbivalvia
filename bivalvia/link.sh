@@ -1,7 +1,9 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/date.sh
-source ${DOTFILES_PATH}/lib/bash/require.sh
-source ${DOTFILES_PATH}/lib/bash/path.sh
+
+source ${BIVALVIA_PATH}/date.sh
+source ${BIVALVIA_PATH}/require.sh
+source ${BIVALVIA_PATH}/path.sh
 
 
 function ln_support_relative_linking {

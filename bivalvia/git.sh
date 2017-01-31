@@ -1,9 +1,11 @@
+BIVALVIA_PATH="${0}"
 
-source ${DOTFILES_PATH}/lib/bash/cache.sh
-source ${DOTFILES_PATH}/lib/bash/config.sh
-source ${DOTFILES_PATH}/lib/bash/debug.sh
-source ${DOTFILES_PATH}/lib/bash/error.sh
-source ${DOTFILES_PATH}/lib/bash/require.sh
+
+source ${BIVALVIA_PATH}/cache.sh
+source ${BIVALVIA_PATH}/config.sh
+source ${BIVALVIA_PATH}/debug.sh
+source ${BIVALVIA_PATH}/error.sh
+source ${BIVALVIA_PATH}/require.sh
 
 
 function github_repos_by_user {

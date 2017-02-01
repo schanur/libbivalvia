@@ -1,4 +1,4 @@
-BIVALVIA_PATH="${0}"
+BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
 function text_at_file_line_no_range {

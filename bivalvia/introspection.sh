@@ -1,4 +1,4 @@
-BIVALVIA_PATH="${0}"
+BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
 source ${BIVALVIA_PATH}/file_search_replace.sh

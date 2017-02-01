@@ -1,4 +1,4 @@
-BIVALVIA_PATH="${0}"
+BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
 function run_desc_tests_from_function {

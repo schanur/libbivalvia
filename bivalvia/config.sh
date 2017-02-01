@@ -1,4 +1,4 @@
-BIVALVIA_PATH="${0}"
+BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
 # function user_has_profile_path {

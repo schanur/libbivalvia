@@ -1,6 +1,6 @@
 BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
-
+# Runs the script with the same parameters as root.
 function run_as_root {
     if [ "${USER}" != "root" ]; then
         echo "Root privileges are required.

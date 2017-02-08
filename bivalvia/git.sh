@@ -7,6 +7,13 @@ source ${BIVALVIA_PATH}/debug.sh
 source ${BIVALVIA_PATH}/error.sh
 source ${BIVALVIA_PATH}/require.sh
 
+function github_git_prerequirements {
+    if [ ! $(config_file_exists github) ]; then
+        critical_error "No github credentials found"
+    fi
+    load_config_file github
+    require_variable GITHUB__USERNAME
+}
 
 function github_repos_by_user {
     local USERNAME=${1}
@@ -67,6 +74,54 @@ function create_github_repo {
     # Manually add new repo to cache file
 }
 
+function gitlab_git_prerequirements {
+    not_implemented_error
+}
+
+function gitlab_repos_by_user {
+    not_implemented_error
+}
+
+function gitlab_repo_exists {
+    not_implemented_error
+}
+
+function create_gitlab_repo {
+    not_implemented_error
+}
+
+function ssh_git_prerequirements {
+    not_implemented_error
+}
+
+function ssh_repos_by_user {
+    not_implemented_error
+}
+
+function ssh_repo_exists {
+    not_implemented_error
+}
+
+function create_ssh_repo {
+    not_implemented_error
+}
+
+function local_git_prerequirements {
+    not_implemented_error
+}
+
+function local_repos_by_user {
+    not_implemented_error
+}
+
+function local_repo_exists {
+    not_implemented_error
+}
+
+function create_local_repo {
+    not_implemented_error
+}
+
 function git_repo_exists {
     local REMOTE_URL="${1}"
     local REPO_NAME=$(basename ${REMOTE_URL})
@@ -77,11 +132,7 @@ function git_repo_exists {
 
     case ${REMOTE_URL} in
         https://github.com/*)
-            if [ ! $(config_file_exists github) ]; then
-                critical_error "No github credentials found"
-            fi
-            load_config_file github
-            require_variable GITHUB__USERNAME
+            github_git_prerequirements
             if [ $(github_repos_by_user ${GITHUB__USERNAME} | egrep -c "^${REPO_NAME_WITHOUT_EXT}\$") -eq 1 ]; then
                 REPO_EXISTS=1
             fi
@@ -115,16 +166,16 @@ function create_git_repo {
 
     case ${REMOTE_URL} in
         https://github.com/*)
-            not_implemented_error
+            create_github_repo
             ;;
         https://gitlab.com/*)
-            not_implemented_error
+            create_gitlab_repo
             ;;
         ssh://*)
-            not_implemented_error
+            create_ssh_repo
             ;;
         *)
-            not_implemented_error
+            create_fs_repo
             ;;
 
     esac

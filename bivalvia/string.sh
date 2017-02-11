@@ -27,5 +27,5 @@ function fill_tail {
         STRING="${STRING}${FILL_CHARACTER}"
     done
 
-    echo "${STRING}"
+    echo -n "${STRING}"
 }

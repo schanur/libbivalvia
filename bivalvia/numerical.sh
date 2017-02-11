@@ -22,3 +22,17 @@ function fraction_to_percentage {
 
     echo ${PERCENTAGE}
 }
+
+function numeric_diff {
+    local A=${1}
+    local B=${2}
+    local DIFF
+
+    if [ ${A} -le ${B} ]; then
+        (( DIFF = B - A ))
+    else
+        (( DIFF = A - B ))
+    fi
+
+    echo ${DIFF}
+}

@@ -7,7 +7,5 @@ TEST_PATH="$(dirname $BASH_SOURCE)/test"
 
 echo ${BIVALVIA_PATH}
 for TEST_SCRIPT in $(find ${TEST_PATH} ${SEARCH_PATH} -mindepth 1 -maxdepth 1); do
-    echo "${TEST_SCRIPT}"
-
     ${TEST_SCRIPT}
 done

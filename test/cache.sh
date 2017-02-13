@@ -1,1 +1,1 @@
-BIVALVIA_PATH="../bivalvia/${0}"
+BIVALVIA_PATH="$(dirname ${BASH_SOURCE})/../bivalvia"

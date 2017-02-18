@@ -55,14 +55,43 @@ function run_desc_tests_from_module {
     local MODULE_FILENAME=${1}
 }
 
+# function print_test_desc {
+
+# }
+
+# function print_test_result {
+
+# }
+
+function describe_test_failure {
+    local FUNCTION_NAME="${1}"
+    local EXPECTED_RETURN_VALUE="${2}" EXPECTED_STDOUT_VALUE="${3}" EXPECTED_STDERR_VALUE="${4}"
+    local ACTUAL_RETURN_VALUE="${5}"   ACTUAL_STDOUT_VALUE="${6}"   ACTUAL_STDERR_VALUE="${7}"
+
+    if [ ${EXPECTED_RETURN_VALUE}   -ne  ${ACTUAL_RETURN_VALUE} ]; then
+        echo "Expected return value:  >> ${EXPECTED_RETURN_VALUE} <<"
+        echo "Actual return value:    >> ${ACTUAL_RETURN_VALUE} <<"
+    fi
+    if [ "${EXPECTED_STDOUT_VALUE}"  != "${ACTUAL_STDOUT_VALUE}" ]; then
+        echo "Expected stdout value:  >> ${EXPECTED_STDOUT_VALUE} <<"
+        echo "Actual stdout value:    >> ${ACTUAL_STDOUT_VALUE} <<"
+    fi
+    if [ "${EXPECTED_STDERR_VALUE}"  != "${ACTUAL_STDERR_VALUE}" ]; then
+        echo "Expected stderr value:  >> ${EXPECTED_STDERR_VALUE} <<"
+        echo "Actual stderr value:    >> ${ACTUAL_STDERR_VALUE} <<"
+    fi
+}
+
 # Calling convention:
 #  test_function function_name expected_return expected_stdout expected_stderr
 function test_function {
     local FUNCTION_NAME="${1}"
     local EXPECTED_RETURN_VALUE="${2}" EXPECTED_STDOUT_VALUE="${3}" EXPECTED_STDERR_VALUE="${4}"
     local ACTUAL_RETURN_VALUE ACTUAL_STDOUT_VALUE ACTUAL_STDERR_VALUE="" # TODO: We currently do not cover stderr values
+    local RETURN_CORRECT=1 STDOUT_CORRECT=1 STDERR_CORRECT=1
     shift; shift; shift; shift
-    local PARAMETER="${*}"
+    local PARAMETER="${@}"
+    # echo "${PARAMETER}"
     local TEST_LOG_OUTPUT_STR TEST_STATUS_START_COLUMN TEST_RETURN_STATUS=0 TEST_DURATION TEST_SUCC=1 TEST_STATUS_STR
     local TEST_STATUS_COLOR
     local COLUMNS=$(tput cols)
@@ -70,6 +99,7 @@ function test_function {
     # (( TEST_STATUS_START_COLUMN = COLUMNS - GL_TEST_DISTANCE_TO_RIGHT_BORDER ))
 
     # Print test description.
+    echo -n "    "
     echo -n $(with_color yellow "func: ")
     fill_tail 30 ' ' ${FUNCTION_NAME}
     fill_tail 40 ' ' "$(with_color yellow parm:) ${PARAMETER}"
@@ -85,8 +115,8 @@ function test_function {
 
     # Check if test was successful.
     test  ${EXPECTED_RETURN_VALUE}  -eq  ${ACTUAL_RETURN_VALUE}  || TEST_SUCC=0
-    test "${EXPECTED_STDOUT_VALUE}"  =  "${ACTUAL_STDOUT_VALUE}" || TEST_SUCC=0
-    test "${EXPECTED_STDERR_VALUE}"  =  "${ACTUAL_STDERR_VALUE}" || TEST_SUCC=0
+    test "${EXPECTED_STDOUT_VALUE}"   = "${ACTUAL_STDOUT_VALUE}" || TEST_SUCC=0
+    test "${EXPECTED_STDERR_VALUE}"   = "${ACTUAL_STDERR_VALUE}" || TEST_SUCC=0
 
     # Set all required variables for test result log string.
     if [ ${TEST_SUCC} -eq 1 ]; then
@@ -95,12 +125,18 @@ function test_function {
     else
         TEST_STATUS_STR=${GL_TEST_ERROR_STATUS_STR}
         TEST_STATUS_COLOR=${GL_TEST_ERROR_STATUS_COLOR}
+
     fi
 
     with_color yellow "test_status:"
     # Print test result.
     echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
 
+    if [ ${TEST_SUCC} -eq 0 ]; then
+        describe_test_failure ${FUNCTION_NAME} \
+                              "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDOUT_VALUE}" "${EXPECTED_STDERR_VALUE}" \
+                              "${ACTUAL_RETURN_VALUE}"   "${ACTUAL_STDOUT_VALUE}"   "${ACTUAL_STDERR_VALUE}"
+    fi
 }
 
 # Expect no stderr output and no stderr output.
@@ -108,9 +144,9 @@ function test_function_return {
     local FUNCTION_NAME="${1}"
     local EXPECTED_RETURN_VALUE="${2}"
     shift; shift
-    local PARAMETER="${*}"
+    local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} ${EXPECTED_RETURN_VALUE} "" "" ${PARAMETER}
+    test_function ${FUNCTION_NAME} ${EXPECTED_RETURN_VALUE} "" "" "${PARAMETER}"
 }
 
 # Expect the return value 0 and no stderr output.
@@ -118,9 +154,9 @@ function test_function_stdout {
     local FUNCTION_NAME="${1}"
     local EXPECTED_STDOUT_VALUE="${2}"
     shift; shift
-    local PARAMETER="${*}"
+    local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} 0 ${EXPECTED_STDOUT_VALUE} "" ${PARAMETER}
+    test_function ${FUNCTION_NAME} 0 "${EXPECTED_STDOUT_VALUE}" "" "${PARAMETER}"
 }
 
 # Expect the return value 0 and no stdout output.
@@ -128,9 +164,9 @@ function test_function_stderr {
     local FUNCTION_NAME="${1}"
     local EXPECTED_STDERR_VALUE="${2}"
     shift; shift
-    local PARAMETER="${*}"
+    local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} 0 "" ${EXPECTED_STDERR_VALUE} ${PARAMETER}
+    test_function ${FUNCTION_NAME} 0 "" "${EXPECTED_STDERR_VALUE}" "${PARAMETER}"
 }
 
 function test_function_return_and_stdout {
@@ -138,9 +174,9 @@ function test_function_return_and_stdout {
     local EXPECTED_RETURN_VALUE="${2}"
     local EXPECTED_STDOUT_VALUE="${3}"
     shift; shift; shift
-    local PARAMETER="${*}"
+    local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} ${EXPECTED_RETURN_VALUE} ${EXPECTED_STDERR_VALUE} "" ${PARAMETER}
+    test_function ${FUNCTION_NAME} "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDERR_VALUE}" "" "${PARAMETER}"
 }
 
 function test_stats {

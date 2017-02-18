@@ -94,6 +94,18 @@ function require_numeric_value {
     fi
 }
 
+function require_larger_equal {
+    local ACTUAL_VALUE=${1}
+    local LIMIT=${2}
+
+    require_numeric_value ${ACTUAL_VALUE}
+
+    if [ ${ACTUAL_VALUE} -lt ${LIMIT} ]; then
+        echo "Variable is too small: ${ACTUAL_VALUE}" >&2
+        require_failed
+    fi
+}
+
 function require_equal_numeric_value {
     local ACTUAL_VALUE=${1}
     local EXPECTED_VALUE=${2}

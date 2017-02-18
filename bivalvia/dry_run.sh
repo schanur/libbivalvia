@@ -10,5 +10,4 @@ function run_or_simulate {
     else
         ${COMMAND}
     fi
-
 }

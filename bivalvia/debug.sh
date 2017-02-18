@@ -43,7 +43,7 @@ function print_var {
         (( INDENTATION_DEPTH = ${#VARIABLE_NAME} + 2 ))
     fi
 
-    fill_tail "${VARIABLE_NAME}:" ${INDENTATION_DEPTH} ' '
+    fill_tail ${INDENTATION_DEPTH} ' ' "${VARIABLE_NAME}:"
     eval "echo \"\${${VARIABLE_NAME}}\""
 }
 

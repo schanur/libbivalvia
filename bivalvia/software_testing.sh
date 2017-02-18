@@ -71,11 +71,11 @@ function test_function {
 
     # Print test description.
     echo -n $(with_color yellow "func: ")
-    fill_tail ${FUNCTION_NAME}                                     30 ' '
-    fill_tail "$(with_color yellow parm:) ${PARAMETER}"            40 ' '
-    fill_tail "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" 18 ' '
-    fill_tail "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" 25 ' '
-    fill_tail "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}" 25 ' '
+    fill_tail 30 ' ' ${FUNCTION_NAME}
+    fill_tail 40 ' ' "$(with_color yellow parm:) ${PARAMETER}"
+    fill_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}"
+    fill_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}"
+    fill_tail 25 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
 
     # Run the actual test.
     set_test_start_time
@@ -99,7 +99,8 @@ function test_function {
 
     with_color yellow "test_status:"
     # Print test result.
-    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${TEST_STATUS_STR} ${GL_TEST_MAX_STATUS_STR_LEN} ' ') ${TEST_DURATION})"
+    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
+
 }
 
 # Expect no stderr output and no stderr output.

@@ -1,6 +1,9 @@
 BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
+# source ${BIVALVIA_PATH}/require.sh
+
+
 # "a bcd ef" => "3"
 function longest_string_length {
     local STR_LIST="${*}"
@@ -16,9 +19,10 @@ function longest_string_length {
 }
 
 function fill_tail {
-    local STRING=${1}
-    local LENGTH=${2}
-    local FILL_CHARACTER=${3}
+    local LENGTH=${1}
+    local FILL_CHARACTER=${2}
+    shift; shift
+    local STRING="${@}"
     local FILL_CHARACTER_COUNT
 
     (( FILL_CHARACTER_COUNT=${LENGTH}-${#STRING} ))
@@ -28,4 +32,21 @@ function fill_tail {
     done
 
     echo -n "${STRING}"
+}
+
+function fill_ellipsis {
+    local FILL_LENGTH=${1}
+    shift
+    local STRING="${@}"
+    local STR_LENGTH=${#STRING}
+
+    # echo $STRING $FILL_LENGTH $STR_LENGTH >&2
+
+    if [ ${STR_LENGTH} -le ${FILL_LENGTH} ]; then
+        fill_tail ${FILL_LENGTH} ' ' "${STRING}"
+    else
+        local CHARS_TO_PRINT
+        (( CHARS_TO_PRINT = FILL_LENGTH - 3 ))
+        echo "${STRING:0:${CHARS_TO_PRINT}}..."
+    fi
 }

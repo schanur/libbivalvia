@@ -3,8 +3,8 @@ BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 source ${BIVALVIA_PATH}/error.sh
 
-# Sets the global variable GL_STR_MATCH to the number of times the
-# string was found in the file given by parameter 1.
+# Returns the number of times the string was found in the file given
+# by parameter 1.
 function file__count_str_match {
     local FILENAME=${1}
     local SEARCH_STR=${2}

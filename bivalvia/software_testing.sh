@@ -101,11 +101,11 @@ function test_function {
     # Print test description.
     echo -n "    "
     echo -n $(with_color yellow "func: ")
-    fill_tail 30 ' ' ${FUNCTION_NAME}
-    fill_tail 40 ' ' "$(with_color yellow parm:) ${PARAMETER}"
-    fill_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}"
-    fill_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}"
-    fill_tail 25 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
+    fill_ellipsis 30 ' ' ${FUNCTION_NAME}                                     && echo -n " "
+    fill_ellipsis 40 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
+    fill_ellipsis 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
+    fill_ellipsis 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
+    fill_ellipsis 25 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
 
     # Run the actual test.
     set_test_start_time

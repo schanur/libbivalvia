@@ -37,16 +37,15 @@ function fill_tail {
 function fill_ellipsis {
     local FILL_LENGTH=${1}
     shift
-    local STRING="${@}"
+    local STRING="$(echo -n ${@} | head -n 1)"
     local STR_LENGTH=${#STRING}
 
-    # echo $STRING $FILL_LENGTH $STR_LENGTH >&2
 
     if [ ${STR_LENGTH} -le ${FILL_LENGTH} ]; then
         fill_tail ${FILL_LENGTH} ' ' "${STRING}"
     else
         local CHARS_TO_PRINT
         (( CHARS_TO_PRINT = FILL_LENGTH - 3 ))
-        echo "${STRING:0:${CHARS_TO_PRINT}}..."
+        echo -n "${STRING:0:${CHARS_TO_PRINT}}..."
     fi
 }

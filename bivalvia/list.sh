@@ -24,9 +24,25 @@ function list_is_empty {
     echo ${IS_EMPTY}
 }
 
-# function list_has_value {
-#     true
-# }
+
+function list_count_value {
+    local NEEDLE="${1}"
+
+    local LIST="${2}"
+    local VALUE_COUNT=0
+
+    for VALUE in $(echo ${LIST} |sed -e 's/\\n/\ /g'); do
+        if [ "${VALUE}" = "${NEEDLE}" ]; then
+            (( VALUE_COUNT = VALUE_COUNT + 1 ))
+        fi
+    done
+
+    echo ${VALUE_COUNT}
+}
+
+function list_has_value {
+    true
+}
 
 function list_add {
     local LIST_1="${1}"

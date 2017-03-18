@@ -1,21 +1,51 @@
 BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
-# function user_has_profile_path {
-#     local PATH_EXIST
-#     local HOSTNAME=$(hostname)
-# }
-
-source ${BIVALVIA_PATH}/require.sh
 source ${BIVALVIA_PATH}/csv.sh
+source ${BIVALVIA_PATH}/error.sh
+source ${BIVALVIA_PATH}/require.sh
 
+
+declare -A GL__CONFIG_LOADED
+
+CONFIG_HOSTNAME=$(hostname)
 
 # CONFIG_PATH=${DOTFILES_PATH}/config
+
+
+# Add config file parameter to list of config files that have been
+# loaded. This prevents us from loading config files multiple times.
+function remember_loaded {
+    not_implemented_error
+}
+
+# Returns 1 if a config file was already loaded. 0 otherwise.
+function already_loaded {
+    # TODO: Implement!
+    echo "0"
+}
+
+function set_config_path {
+    local NEW_CONFIG_PATH="${1}"
+
+    require_directory "${NEW_CONFIG_PATH}"
+
+    CONFIG_PATH="${NEW_CONFIG_PATH}"
+}
+
+# Replaces the hostname as profile subpath with a string provides as
+# first parameter. This is currently for unit tests only. But maybe we
+# will find other use cases later.
+function set_config_hostname {
+    local NEW_CONFIG_HOSTNAME=${1}
+
+    CONFIG_HOSTNAME="${NEW_CONFIG_HOSTNAME}"
+}
 
 function profile_path {
     require_directory ${CONFIG_PATH}
 
-    local HOSTNAME=$(hostname)
+    local HOSTNAME=${CONFIG_HOSTNAME}
     local PROFILE_PATH=${CONFIG_PATH}/profile/${HOSTNAME}
 
     echo ${PROFILE_PATH}
@@ -106,7 +136,25 @@ function load_config_file {
     source ${ABSOLUTE_CONFIG_FILENAME}
 }
 
+function load_config_file_once {
+    local RELATIVE_CONFIG_FILENAME=${1}
+    local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
+
+    require_file ${ABSOLUTE_CONFIG_FILENAME}
+
+    source ${ABSOLUTE_CONFIG_FILENAME}
+}
+
 function load_config_file_if_exists {
+    local RELATIVE_CONFIG_FILENAME=${1}
+    local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
+
+    if [ $(config_file_exists) = "1" ]; then
+        source ${ABSOLUTE_CONFIG_FILENAME}
+    fi
+}
+
+function load_config_file_if_exists_once {
     local RELATIVE_CONFIG_FILENAME=${1}
     local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
 

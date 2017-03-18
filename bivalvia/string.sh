@@ -49,7 +49,7 @@ function fill_front {
     echo -n "${STRING}"
 }
 
-function fill_ellipsis {
+function fill_ellipsis_tail {
     local FILL_LENGTH=${1}
     shift
     local STRING="$(echo -n ${@} | head -n 1)"

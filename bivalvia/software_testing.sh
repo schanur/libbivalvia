@@ -101,11 +101,11 @@ function test_function {
     # Print test description.
     echo -n "  "
     echo -n $(with_color yellow "func: ")
-    fill_ellipsis 30 ' ' ${FUNCTION_NAME}                                     && echo -n " "
-    fill_ellipsis 30 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
-    fill_ellipsis 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
-    fill_ellipsis 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
-    fill_ellipsis 18 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
+    fill_ellipsis_tail 30 ' ' ${FUNCTION_NAME}                                     && echo -n " "
+    fill_ellipsis_tail 30 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
+    fill_ellipsis_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
+    fill_ellipsis_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
+    fill_ellipsis_tail 18 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
 
     # Run the actual test.
     set_test_start_time
@@ -178,6 +178,63 @@ function test_function_return_and_stdout {
 
     test_function ${FUNCTION_NAME} "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDERR_VALUE}" "" "${PARAMETER}"
 }
+
+# # Calling convention:
+# #  test_function function_name expected_return expected_stdout expected_stderr
+# function test_function_manual {
+#     local FUNCTION_NAME="${1}"
+#     local EXPECTED_RETURN_VALUE="${2}" EXPECTED_STDOUT_VALUE="${3}" EXPECTED_STDERR_VALUE="${4}"
+#     local ACTUAL_RETURN_VALUE ACTUAL_STDOUT_VALUE ACTUAL_STDERR_VALUE="" # TODO: We currently do not cover stderr values
+#     local RETURN_CORRECT=1 STDOUT_CORRECT=1 STDERR_CORRECT=1
+#     shift; shift; shift; shift
+#     local PARAMETER="${@}"
+#     # echo "${PARAMETER}"
+#     local TEST_LOG_OUTPUT_STR TEST_STATUS_START_COLUMN TEST_RETURN_STATUS=0 TEST_DURATION TEST_SUCC=1 TEST_STATUS_STR
+#     local TEST_STATUS_COLOR
+#     local COLUMNS=$(tput cols)
+
+#     # (( TEST_STATUS_START_COLUMN = COLUMNS - GL_TEST_DISTANCE_TO_RIGHT_BORDER ))
+
+#     # Print test description.
+#     echo -n "    "
+#     echo -n $(with_color yellow "func: ")
+#     fill_ellipsis_tail 30 ' ' ${FUNCTION_NAME}                                     && echo -n " "
+#     fill_ellipsis_tail 40 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
+#     fill_ellipsis_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
+#     fill_ellipsis_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
+#     fill_ellipsis_tail 25 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
+
+#     # Run the actual test.
+#     set_test_start_time
+#     ACTUAL_STDOUT_VALUE=$(${FUNCTION_NAME} ${PARAMETER})
+#     ACTUAL_RETURN_VALUE=${?}
+#     TEST_DURATION=$(test_duration)
+
+#     # Check if test was successful.
+#     test  ${EXPECTED_RETURN_VALUE}  -eq  ${ACTUAL_RETURN_VALUE}  || TEST_SUCC=0
+#     test "${EXPECTED_STDOUT_VALUE}"   = "${ACTUAL_STDOUT_VALUE}" || TEST_SUCC=0
+#     test "${EXPECTED_STDERR_VALUE}"   = "${ACTUAL_STDERR_VALUE}" || TEST_SUCC=0
+
+#     # Set all required variables for test result log string.
+#     if [ ${TEST_SUCC} -eq 1 ]; then
+#         TEST_STATUS_STR=${GL_TEST_SUCC_STATUS_STR}
+#         TEST_STATUS_COLOR=${GL_TEST_SUCC_STATUS_COLOR}
+#     else
+#         TEST_STATUS_STR=${GL_TEST_ERROR_STATUS_STR}
+#         TEST_STATUS_COLOR=${GL_TEST_ERROR_STATUS_COLOR}
+
+#     fi
+
+#     with_color yellow "test_status:"
+#     # Print test result.
+#     echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
+
+#     if [ ${TEST_SUCC} -eq 0 ]; then
+#         describe_test_failure ${FUNCTION_NAME} \
+#                               "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDOUT_VALUE}" "${EXPECTED_STDERR_VALUE}" \
+#                               "${ACTUAL_RETURN_VALUE}"   "${ACTUAL_STDOUT_VALUE}"   "${ACTUAL_STDERR_VALUE}"
+#     fi
+# }
 
 function test_stats {
     local TOTAL_TEST_COUNT

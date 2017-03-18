@@ -15,12 +15,18 @@ function stack_trace {
             break
         fi
         local FUNC=${FUNCNAME[${I}]}
-        [ x$FUNC = x ] && func=MAIN
+        [ "$FUNC" = "" ] && func="MAIN"
         local LINE_NO="${BASH_LINENO[(( I - 1 ))]}"
         local SRC="${BASH_SOURCE[${I}]}"
-        [ x"$SRC" = x ] && SRC=NO_FILE_SOURCE
+        [ "$SRC" = "" ] && SRC=NO_FILE_SOURCE
 
-        echo ${I} ${FUNC} ${SRC} ${LINE_NO} >&2
+        # echo ${I} ${FUNC} ${SRC} ${LINE_NO} >&2
+
+        (fill_ellipsis        3 ' ' ${I}         && echo -n " ") >&2
+        (fill_ellipsis       30 ' ' ${FUNC}      && echo -n " ") >&2
+        (fill_ellipsis_front 40 ' ' ${SRC}       && echo -n " ") >&2
+        (fill_ellipsis_front  5 ' ' ${LINE_NO}   && echo       ) >&2
+
     done
 }
 

@@ -99,13 +99,13 @@ function test_function {
     # (( TEST_STATUS_START_COLUMN = COLUMNS - GL_TEST_DISTANCE_TO_RIGHT_BORDER ))
 
     # Print test description.
-    echo -n "    "
+    echo -n "  "
     echo -n $(with_color yellow "func: ")
     fill_ellipsis 30 ' ' ${FUNCTION_NAME}                                     && echo -n " "
-    fill_ellipsis 40 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
+    fill_ellipsis 30 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
     fill_ellipsis 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
     fill_ellipsis 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
-    fill_ellipsis 25 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
+    fill_ellipsis 18 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
 
     # Run the actual test.
     set_test_start_time

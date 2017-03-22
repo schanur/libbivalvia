@@ -89,7 +89,8 @@ function create_link {
 function backup_config_and_create_link {
     local LINK_TARGET=${1}
     local LINK_NAME=${2}
-    local BACKUP_NAME=${LINK_NAME}.dotfiles_backup.$(timestamp)
+    local LINK_NAME_BASE_PATH="$(dirname ${LINK_NAME})"
+    local BACKUP_NAME="${LINK_NAME}.dotfiles_backup.$(timestamp)"
     local BACKUP_OLD_FILE=0
     local CREATE_LINK=0
 
@@ -119,7 +120,11 @@ function backup_config_and_create_link {
         mv ${LINK_NAME} ${BACKUP_NAME}
     fi
     if [ ${CREATE_LINK} = "1" ]; then
-        echo "Create link."
+	echo "Link source base path does not exist. Create directory: "
+	if [ ! -d ${LINK_NAME_BASE_PATH} ]; then
+	    mkdir -p ${LINK_NAME_BASE_PATH}
+	fi
+	echo "Create link."
         create_link ${LINK_TARGET} ${LINK_NAME}
     fi
 }

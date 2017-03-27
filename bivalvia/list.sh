@@ -1,7 +1,6 @@
 BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
-
 function list_size {
     local LIST="${1}"
     local IS_EMPTY=0

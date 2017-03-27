@@ -1,8 +1,4 @@
-# BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
-
-# echo ${BIVALVIA_PATH}
-
-set -o errexit -o nounset -o pipefail
+BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 
 source ${BIVALVIA_PATH}/color.sh

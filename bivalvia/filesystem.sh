@@ -1,3 +1,6 @@
+BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+
+
 source ${BIVALVIA_PATH}/error.sh
 source ${BIVALVIA_PATH}/require.sh
 

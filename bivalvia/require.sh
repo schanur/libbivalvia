@@ -4,6 +4,7 @@ BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 source ${BIVALVIA_PATH}/debug.sh
 source ${BIVALVIA_PATH}/numerical.sh
 
+
 function require_failed {
     echo "Abort!" >&2
     stack_trace

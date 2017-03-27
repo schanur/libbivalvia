@@ -1,5 +1,6 @@
 BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
+
 # Very simple CSV module. It currently does not support encapsulation
 # of fields (for example: "a","b","c").
 

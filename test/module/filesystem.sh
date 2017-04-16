@@ -9,7 +9,8 @@ source "${BIVALVIA_PATH}/filesystem.sh"
 # echo
 # file "${TEST_DATA_PATH}"
 # echo
-echo
-files_in_path "${TEST_DATA_PATH}/filesystem/3_files"
 
-echo
+# echo
+# files_in_path "${TEST_DATA_PATH}/filesystem/3_files"
+
+# echo

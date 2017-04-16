@@ -23,6 +23,8 @@ function fraction_to_percentage {
     echo ${PERCENTAGE}
 }
 
+# "1 3" => "3"
+# "3 1" => "3"
 function numeric_diff {
     local A=${1}
     local B=${2}

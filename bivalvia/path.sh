@@ -3,6 +3,7 @@ BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 source ${BIVALVIA_PATH}/require.sh
 
+
 # Prints absolute path of file. If the parameter is a directory, the
 # parent directory is printed.
 function absolute_path {

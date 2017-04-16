@@ -120,11 +120,11 @@ function backup_config_and_create_link {
         mv ${LINK_NAME} ${BACKUP_NAME}
     fi
     if [ ${CREATE_LINK} = "1" ]; then
-	echo "Link source base path does not exist. Create directory: "
-	if [ ! -d ${LINK_NAME_BASE_PATH} ]; then
-	    mkdir -p ${LINK_NAME_BASE_PATH}
-	fi
-	echo "Create link."
+        echo "Link source base path does not exist. Create directory: "
+        if [ ! -d ${LINK_NAME_BASE_PATH} ]; then
+            mkdir -p ${LINK_NAME_BASE_PATH}
+        fi
+        echo "Create link."
         create_link ${LINK_TARGET} ${LINK_NAME}
     fi
 }

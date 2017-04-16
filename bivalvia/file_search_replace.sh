@@ -3,6 +3,7 @@ BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 source ${BIVALVIA_PATH}/error.sh
 
+
 # Returns the number of times the string was found in the file given
 # by parameter 1.
 function file__count_str_match {

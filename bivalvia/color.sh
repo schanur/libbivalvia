@@ -1,5 +1,6 @@
 declare -A COLOR_TABLE
 
+
 COLOR_TABLE['red']=31
 COLOR_TABLE['green']=32
 COLOR_TABLE['yellow']=33

@@ -3,6 +3,7 @@ BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
 
 source ${BIVALVIA_PATH}/file_search_replace.sh
 
+
 # Print all function declarations of the forms:
 #   function test_function {
 #   function TestFunction {

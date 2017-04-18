@@ -1,0 +1,9 @@
+# This config file can contain a list of servers which contain a text
+# file with all repositories and their properties.
+
+declare -a GIT_SSH_REPO_INFO_FILE
+
+# ssh://username@hostname:path — relative path
+# ssh://username@hostname:/path — absolute path
+
+GIT_SSH_REPO_INFO_FILE[0]=scp,ze@rudel.homenet.org:443/home/ze/local/git_serv/

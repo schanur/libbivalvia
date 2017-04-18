@@ -1,0 +1,4 @@
+GIT_GITLAB__USERNAME="schanur"
+
+# Do you have a paid accout which supports private repositories?
+GIT_GITLAB__PRIVATE_REPO_SUPPORT=0

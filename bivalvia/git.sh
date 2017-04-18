@@ -7,12 +7,13 @@ source ${BIVALVIA_PATH}/debug.sh
 source ${BIVALVIA_PATH}/error.sh
 source ${BIVALVIA_PATH}/require.sh
 
+
 function github_git_prerequirements {
-    if [ ! $(config_file_exists github) ]; then
+    if [ ! $(config_file_exists git_github) ]; then
         critical_error "No github credentials found"
     fi
     load_config_file github
-    require_variable GITHUB__USERNAME
+    require_variable GIT_GITHUB__USERNAME
 }
 
 function github_repos_by_user {
@@ -64,8 +65,13 @@ function github_repos_by_user {
 
 function github_repo_exists {
     local REPO_NAME=${1}
+    # local
 
-    github_repos_by_user
+    # case $(github_repos_by_user | grep -e "") in
+    #     0)
+
+    #         ;;
+    # esac
 }
 
 function create_github_repo {
@@ -91,7 +97,11 @@ function create_gitlab_repo {
 }
 
 function ssh_git_prerequirements {
-    not_implemented_error
+    if [ ! $(config_file_exists git_ssh) ]; then
+        critical_error "No ssh credentials found"
+    fi
+    load_config_file git_ssh
+    require_variable GIT_SSH__USERNAME
 }
 
 function ssh_repos_by_user {
@@ -107,7 +117,11 @@ function create_ssh_repo {
 }
 
 function local_git_prerequirements {
-    not_implemented_error
+    if [ ! $(config_file_exists git_local) ]; then
+        critical_error "No ssh credentials found"
+    fi
+    load_config_file git_local
+    require_variable GIT_LOCAL__BASE_PATH
 }
 
 function local_repos_by_user {

@@ -1,4 +1,4 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
 # Prints the content of multible lines of a file $1 starting at line

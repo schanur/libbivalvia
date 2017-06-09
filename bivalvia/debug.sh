@@ -1,7 +1,7 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
-source ${BIVALVIA_PATH}/string.sh
+source "${BIVALVIA_PATH}/string.sh"
 
 
 function stack_trace {

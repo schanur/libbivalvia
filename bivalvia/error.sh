@@ -1,7 +1,7 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
-source ${BIVALVIA_PATH}/debug.sh
+source "${BIVALVIA_PATH}/debug.sh"
 
 
 function critical_error {

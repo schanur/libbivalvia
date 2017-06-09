@@ -1,4 +1,4 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
 # Valid input is 1, 2, 4, 8.

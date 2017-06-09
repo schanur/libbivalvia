@@ -1,9 +1,9 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
-source ${BIVALVIA_PATH}/csv.sh
-source ${BIVALVIA_PATH}/error.sh
-source ${BIVALVIA_PATH}/require.sh
+source "${BIVALVIA_PATH}/csv.sh"
+source "${BIVALVIA_PATH}/error.sh"
+source "${BIVALVIA_PATH}/require.sh"
 
 
 declare -A GL__CONFIG_LOADED

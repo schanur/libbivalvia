@@ -1,10 +1,10 @@
 #!/bin/bash
 set -o errexit -o nounset -o pipefail
-BIVALVIA_PATH="$(dirname ${BASH_SOURCE})/../../bivalvia"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")/../../bivalvia"
 
 
-source ${BIVALVIA_PATH}/software_testing.sh
-source ${BIVALVIA_PATH}/list.sh
+source "${BIVALVIA_PATH}/software_testing.sh"
+source "${BIVALVIA_PATH}/list.sh"
 
 
 test_function_stdout list_is_empty    0            "a"

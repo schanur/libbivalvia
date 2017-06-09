@@ -1,4 +1,4 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
 source ${BIVALVIA_PATH}/error.sh
@@ -18,7 +18,7 @@ function find_parallel_tool {
 
 function run_non_parallel {
     while read CMD; do
-        echo "${CMD}"
+        ${CMD}
     done
 }
 

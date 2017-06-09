@@ -1,11 +1,11 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
-source ${BIVALVIA_PATH}/color.sh
-source ${BIVALVIA_PATH}/date.sh
-source ${BIVALVIA_PATH}/debug.sh # FIXME: Remove
-source ${BIVALVIA_PATH}/numerical.sh
-source ${BIVALVIA_PATH}/string.sh
+source "${BIVALVIA_PATH}/color.sh"
+source "${BIVALVIA_PATH}/date.sh"
+source "${BIVALVIA_PATH}/debug.sh" # FIXME: Remove
+source "${BIVALVIA_PATH}/numerical.sh"
+source "${BIVALVIA_PATH}/string.sh"
 
 
 GL_TEST_SUCC_COUNT=0

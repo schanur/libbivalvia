@@ -1,11 +1,11 @@
-BIVALVIA_PATH="$(dirname $BASH_SOURCE)"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
-source ${BIVALVIA_PATH}/cache.sh
-source ${BIVALVIA_PATH}/config.sh
-source ${BIVALVIA_PATH}/debug.sh
-source ${BIVALVIA_PATH}/error.sh
-source ${BIVALVIA_PATH}/require.sh
+source "${BIVALVIA_PATH}/cache.sh"
+source "${BIVALVIA_PATH}/config.sh"
+source "${BIVALVIA_PATH}/debug.sh"
+source "${BIVALVIA_PATH}/error.sh"
+source "${BIVALVIA_PATH}/require.sh"
 
 function github_git_prerequirements {
     if [ ! $(config_file_exists github) ]; then

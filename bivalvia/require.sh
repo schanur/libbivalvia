@@ -5,18 +5,32 @@ source ${BIVALVIA_PATH}/debug.sh
 source ${BIVALVIA_PATH}/numerical.sh
 
 
+
 function require_failed {
-    echo "Abort!" >&2
-    stack_trace
-    exit 1
+    if [ ${BIVALVIA_REQUIRE__TEST_FRAMEWORK_MODE} -eq 1 ]; then
+        echo "require_failed"
+    else
+        if [ ${BIVALVIA_REQUIRE__STACK_TRACE_ON_FAILURE} -eq 1 ]; then
+            stack_trace
+        fi
+
+        if [ ${BIVALVIA_REQUIRE__ERROR_STRING_ON_FAILURE} -eq 1 ]; then
+            local ERROR_STRING="${*}"
+            echo ${ERROR_STRING} >&2
+            echo "Abort!"        >&2
+        fi
+
+        if [ ${BIVALVIA_REQUIRE__EXIT_ON_FAILURE} ]; then
+            exit 1
+        fi
+    fi
 }
 
 function require_parameters_not_empty {
     ALL_PARAMETERS=${*}
 
     if [ "${ALL_PARAMETERS}" = "" ]; then
-        echo "Parameters are empty." >&2
-        require_failed
+        require_failed "Parameters are empty."
     fi
 }
 
@@ -29,8 +43,7 @@ function require_executable {
 
     which ${EXECUTABLE_NAME} > /dev/null 2>/dev/null || EXECUTABLE_FOUND=0
     if [ ${EXECUTABLE_FOUND} -ne 1 ]; then
-        echo "${EXECUTABLE_NAME} not found." >&2
-        require_failed
+        require_failed "${EXECUTABLE_NAME} not found."
     fi
 }
 
@@ -40,8 +53,7 @@ function require_exists {
     local FILENAME=${1}
 
     if [ ! -e ${FILENAME} ]; then
-        echo "File not found: ${FILENAME}" >&2
-        require_failed
+        require_failed "File not found: ${FILENAME}"
     fi
 }
 
@@ -51,8 +63,7 @@ function require_file {
     local FILENAME=${1}
 
     if [ ! -f ${FILENAME} ]; then
-        echo "File not found: ${FILENAME}" >&2
-        require_failed
+        require_failed "File not found: ${FILENAME}"
     fi
 }
 
@@ -62,8 +73,7 @@ function require_directory {
     local FILENAME=${1}
 
     if [ ! -d ${FILENAME} ]; then
-        echo "Directory not found: ${FILENAME}" >&2
-        require_failed
+        require_failed "Directory not found: ${FILENAME}"
     fi
 }
 
@@ -73,8 +83,7 @@ function require_file_or_directory {
     local FILENAME=${1}
 
     if [[ ! -f ${FILENAME} && ! -d ${FILENAME} ]]; then
-        echo "File not found: ${FILENAME}" >&2
-        require_failed
+        require_failed "File not found: ${FILENAME}"
     fi
 }
 
@@ -84,8 +93,7 @@ function require_sybolic_link {
     local LINK_NAME=${1}
 
     if [ ! -h ${LINK_NAME} ]; then
-        echo "Symbolic link not found: ${LINK_NAME}" >&2
-        require_failed
+        require_failed "Symbolic link not found: ${LINK_NAME}"
     fi
 }
 
@@ -95,8 +103,7 @@ function require_block_special {
     local BLOCK_FILENAME=${1}
 
     if [ ! -b ${BLOCK_FILENAME} ]; then
-        echo "Block special: ${BLOCK_FILENAME}" >&2
-        require_failed
+        require_failed "Block special: ${BLOCK_FILENAME}"
     fi
 }
 
@@ -106,19 +113,24 @@ function require_variable {
     local VARIABLE_NAME=${1}
 
     if [ ! -v ${VARIABLE_NAME} ]; then
-        echo "Variable not set: ${LINK_NAME}" >&2
-        require_failed
+        require_failed "Variable not set: ${LINK_NAME}"
     fi
 }
 
 function require_numeric_value {
+    local REQUIRE_FAILED=0
     require_parameters_not_empty ${*}
 
     local VARIABLE=${1}
 
     if [ $(is_number ${VARIABLE}) -ne 1 ]; then
-        echo "Variable is no numeric value: ${VARIABLE}" >&2
-        require_failed
+        if [ "${REQUIRE_FAILED}" != "0" ]; then
+            REQUIRE_FAILED=1
+        fi
+    fi
+
+    if [ ${REQUIRE_FAILED} -eq 1 ]; then
+        require_failed "Variable is no numeric value: ${VARIABLE}"
     fi
 }
 
@@ -131,8 +143,7 @@ function require_larger_equal {
     require_numeric_value ${ACTUAL_VALUE}
 
     if [ ${ACTUAL_VALUE} -lt ${LIMIT} ]; then
-        echo "Variable is too small: ${ACTUAL_VALUE}" >&2
-        require_failed
+        require_failed "Variable is too small: ${ACTUAL_VALUE}"
     fi
 }
 
@@ -146,7 +157,6 @@ function require_equal_numeric_value {
     require_numeric_value ${EXPECTED_VALUE}
 
     if [ ${ACTUAL_VALUE} != ${EXPECTED_VALUE} ]; then
-        echo "Variable has not expected numeric value: ${LINK_NAME}" >&2
-        require_failed
+        require_failed "Variable has not expected numeric value: ${ACTUAL_VALUE}"
     fi
 }

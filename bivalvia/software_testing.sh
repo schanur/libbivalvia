@@ -87,8 +87,7 @@ function test_function {
     local ACTUAL_RETURN_VALUE ACTUAL_STDOUT_VALUE ACTUAL_STDERR_VALUE="" # TODO: We currently do not cover stderr values
     local RETURN_CORRECT=1 STDOUT_CORRECT=1 STDERR_CORRECT=1
     shift; shift; shift; shift
-    local PARAMETER="${@}"
-    # echo "${PARAMETER}"
+
     local TEST_LOG_OUTPUT_STR TEST_STATUS_START_COLUMN TEST_RETURN_STATUS=0 TEST_DURATION TEST_SUCC=1 TEST_STATUS_STR
     local TEST_STATUS_COLOR
     local COLUMNS=$(tput cols)
@@ -99,14 +98,14 @@ function test_function {
     echo -n "  "
     echo -n $(with_color yellow "func: ")
     fill_ellipsis_tail 30 ' ' ${FUNCTION_NAME}                                     && echo -n " "
-    fill_ellipsis_tail 30 ' ' "$(with_color yellow parm:) ${PARAMETER}"            && echo -n " "
+    fill_ellipsis_tail 30 ' ' "$(with_color yellow parm:) ${@}"                    && echo -n " "
     fill_ellipsis_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
     fill_ellipsis_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
     fill_ellipsis_tail 18 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
 
     # Run the actual test.
     set_test_start_time
-    ACTUAL_STDOUT_VALUE=$(${FUNCTION_NAME} ${PARAMETER})
+    ACTUAL_STDOUT_VALUE=$(${FUNCTION_NAME} "${@}")
     ACTUAL_RETURN_VALUE=${?}
     TEST_DURATION=$(test_duration)
 
@@ -143,7 +142,7 @@ function test_function_return {
     shift; shift
     local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} ${EXPECTED_RETURN_VALUE} "" "" "${PARAMETER}"
+    test_function ${FUNCTION_NAME} ${EXPECTED_RETURN_VALUE} "" "" "${@}"
 }
 
 # Expect the return value 0 and no stderr output.
@@ -153,7 +152,7 @@ function test_function_stdout {
     shift; shift
     local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} 0 "${EXPECTED_STDOUT_VALUE}" "" "${PARAMETER}"
+    test_function ${FUNCTION_NAME} 0 "${EXPECTED_STDOUT_VALUE}" "" "${@}"
 }
 
 # Expect the return value 0 and no stdout output.
@@ -163,7 +162,7 @@ function test_function_stderr {
     shift; shift
     local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} 0 "" "${EXPECTED_STDERR_VALUE}" "${PARAMETER}"
+    test_function ${FUNCTION_NAME} 0 "" "${EXPECTED_STDERR_VALUE}" "${@}"
 }
 
 function test_function_return_and_stdout {
@@ -173,7 +172,7 @@ function test_function_return_and_stdout {
     shift; shift; shift
     local PARAMETER="${@}"
 
-    test_function ${FUNCTION_NAME} "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDERR_VALUE}" "" "${PARAMETER}"
+    test_function ${FUNCTION_NAME} "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDERR_VALUE}" "" "${@}"
 }
 
 # # Calling convention:

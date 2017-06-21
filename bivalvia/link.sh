@@ -94,25 +94,31 @@ function backup_config_and_create_link {
     local BACKUP_OLD_FILE=0
     local CREATE_LINK=0
 
-    if [ -e ${LINK_NAME} ]; then
-        if [ -h ${LINK_NAME} ]; then
-            require_file_or_directory ${LINK_TARGET}
 
-            FUNCTION_LINKS_TO_TARGET=$(links_to_target ${ABSOLUTE_LINK_TARGET} ${ABSOLUTE_LINK_NAME})
-            if [ "${FUNCTION_LINKS_TO_TARGET}" = "1" ]; then
-                echo "Ignore ${LINK_NAME}. Already links to the desired destination."
-            else
-                echo "Link exists but targets the wrong file."
-                CREATE_LINK=1
-                BACKUP_OLD_FILE=1
-            fi
+    if [ -L ${LINK_NAME} ]; then
+	echo "Link filename alreday exists: ${LINK_NAME}"
+	echo "Is symbolic link"
+        require_file_or_directory ${LINK_TARGET}
+
+        FUNCTION_LINKS_TO_TARGET=$(links_to_target ${ABSOLUTE_LINK_TARGET} ${ABSOLUTE_LINK_NAME})
+        if [ "${FUNCTION_LINKS_TO_TARGET}" = "1" ]; then
+            echo "Ignore ${LINK_NAME}. Already links to the desired destination."
         else
-            echo "Found original config."
+            echo "Link exists but targets the wrong file."
             CREATE_LINK=1
             BACKUP_OLD_FILE=1
         fi
-    else
-        CREATE_LINK=1
+    fi
+
+    if [ -e ${LINK_NAME} -a ! -L ${LINK_NAME} ]; then
+            echo "Found original config."
+            CREATE_LINK=1
+            BACKUP_OLD_FILE=1
+    fi
+
+    if [ ! -e ${LINK_NAME} -a ! -L ${LINK_NAME} ]; then
+            echo "Found no config at all. Create new link without creating backup."
+            CREATE_LINK=1
     fi
 
     if [ ${BACKUP_OLD_FILE} = "1" ]; then
@@ -120,8 +126,8 @@ function backup_config_and_create_link {
         mv ${LINK_NAME} ${BACKUP_NAME}
     fi
     if [ ${CREATE_LINK} = "1" ]; then
-        echo "Link source base path does not exist. Create directory: "
         if [ ! -d ${LINK_NAME_BASE_PATH} ]; then
+            echo "Link source base path does not exist. Create directory: ${LINK_NAME_BASE_PATH}"
             mkdir -p ${LINK_NAME_BASE_PATH}
         fi
         echo "Create link."

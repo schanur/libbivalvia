@@ -14,13 +14,18 @@ function do_nothing {
     true
 }
 
-# function expect_2_params {
-#     true
-# }
 
-test_function        print_abc  0 "abc" ""
+test_string_equal_with_duration ""   ""                                                             0 "Compare empty string"
+test_string_equal_with_duration "-1" "-1"                                                           0 "Compare negative number as string"
+test_string_equal_with_duration "1234567890+asdfghjkl#yxcvbnm,.-" "1234567890+asdfghjkl#yxcvbnm,.-" 0 "Compare special chars"
 
-test_function_return do_nothing 0
-test_function_stdout print_abc  "abc"
-test_function_stdout print_abc  "abc" "def"
-# test_function_stderr print_abc ""
+test_string_equal               ""   ""                                                               "Compare empty string. No duration."
+test_string_equal               "-1" "-1"                                                             "Compare negative number as string. No duration."
+test_string_equal               "1234567890+asdfghjkl#yxcvbnm,.-" "1234567890+asdfghjkl#yxcvbnm,.-"   "Compare special chars. No duration."
+
+
+test_function                   print_abc  0 "abc" ""
+
+test_function_return            do_nothing 0
+test_function_stdout            print_abc    "abc"
+test_function_stdout            print_abc    "abc" "def"

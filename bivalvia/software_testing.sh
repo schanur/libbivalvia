@@ -79,6 +79,57 @@ function describe_test_failure {
     fi
 }
 
+# Check if 2 strings are equal. It shows a test summary line similar
+# to test_function. Use this function if you want to unit test
+# something that is not a function but that is also not trivial in
+# time consumption.
+function test_string_equal_with_duration {
+    local EXPECTED_STRING="${1}"
+    local ACTUAL_STRING="${2}"
+    local TEST_DURATION="${3}"
+    shift; shift; shift
+    local DESCRIPTION="$*"
+    local TEST_SUCC=1
+
+    # Print test description.
+    echo -n "  "$(with_color yellow "desc: ")
+    fill_ellipsis_tail 42 ' ' ${DESCRIPTION}                                      && echo -n " "
+    fill_ellipsis_tail 32 ' ' "$(with_color yellow expected:) ${EXPECTED_STRING}" && echo -n " "
+    fill_ellipsis_tail 30 ' ' "$(with_color yellow actual:) ${ACTUAL_STRING}"     && echo -n " "
+    # fill_ellipsis_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
+    # fill_ellipsis_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
+    # fill_ellipsis_tail 18 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
+
+    # Check if test was successful.
+    test ${EXPECTED_STRING} = ${ACTUAL_STRING} || TEST_SUCC=0
+
+    # Set all required variables for test result log string.
+    if [ ${TEST_SUCC} -eq 1 ]; then
+        TEST_STATUS_STR=${GL_TEST_SUCC_STATUS_STR}
+        TEST_STATUS_COLOR=${GL_TEST_SUCC_STATUS_COLOR}
+    else
+        TEST_STATUS_STR=${GL_TEST_ERROR_STATUS_STR}
+        TEST_STATUS_COLOR=${GL_TEST_ERROR_STATUS_COLOR}
+    fi
+
+    # Print test result.
+    with_color yellow "test_status:"
+    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
+}
+
+# Similar to "test_string_equal_with_duration" but assume a test
+# duration of 0 milliseconds.
+function test_string_equal {
+    local EXPECTED_STRING="${1}"
+    local ACTUAL_STRING="${2}"
+    local TEST_DURATION=0
+    shift; shift
+    local DESCRIPTION="$*"
+
+    test_string_equal_with_duration "${EXPECTED_STRING}" "${ACTUAL_STRING}" "${TEST_DURATION}" "${DESCRIPTION}"
+}
+
+
 # Calling convention:
 #  test_function function_name expected_return expected_stdout expected_stderr
 function test_function {
@@ -124,8 +175,8 @@ function test_function {
 
     fi
 
-    with_color yellow "test_status:"
     # Print test result.
+    with_color yellow "test_status:"
     echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
 
     if [ ${TEST_SUCC} -eq 0 ]; then

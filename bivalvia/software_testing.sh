@@ -12,10 +12,11 @@ GL_TEST_SUCC_COUNT=0
 GL_TEST_ERROR_COUNT=0
 
 GL_TEST_START_TIME=0
-# GL_TEST_END_TIME=0
+GL_TEST_END_TIME=0
 
-GL_TEST_FIRST_START_TIME=0
-GL_TEST_LAST_END_TIME=0
+# TODO: Calculate time of whole test suit. But is that really needed?
+# GL_TEST_FIRST_START_TIME=0
+# GL_TEST_LAST_END_TIME=0
 
 GL_TEST_SUCC_STATUS_STR='OK'
 GL_TEST_SUCC_STATUS_COLOR='green'
@@ -32,13 +33,15 @@ GL_TEST_DISTANCE_TO_RIGHT_BORDER=0
 
 
 function set_test_start_time {
-    # GL_TEST_FIRST_START_TIME
     GL_TEST_START_TIME=$(ms_since_epoch)
 }
 
+function set_test_end_time {
+    GL_TEST_END_TIME=$(ms_since_epoch)
+}
+
 function test_duration {
-    local TEST_END_TIME=$(ms_since_epoch)
-    local TEST_DURATION=$(numeric_diff $(ms_since_epoch) ${GL_TEST_START_TIME})
+    local TEST_DURATION=$(numeric_diff ${GL_TEST_END_TIME} ${GL_TEST_START_TIME})
 
     echo ${TEST_DURATION}
 }
@@ -86,8 +89,7 @@ function describe_test_failure {
 function test_string_equal_with_duration {
     local EXPECTED_STRING="${1}"
     local ACTUAL_STRING="${2}"
-    local TEST_DURATION="${3}"
-    shift; shift; shift
+    shift; shift
     local DESCRIPTION="$*"
     local TEST_SUCC=1
 
@@ -114,7 +116,7 @@ function test_string_equal_with_duration {
 
     # Print test result.
     with_color yellow "test_status:"
-    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
+    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) $(test_duration))"
 }
 
 # Similar to "test_string_equal_with_duration" but assume a test
@@ -158,6 +160,7 @@ function test_function {
     set_test_start_time
     ACTUAL_STDOUT_VALUE=$(${FUNCTION_NAME} "${@}")
     ACTUAL_RETURN_VALUE=${?}
+    set_test_end_time
     TEST_DURATION=$(test_duration)
 
     # Check if test was successful.

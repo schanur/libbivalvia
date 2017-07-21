@@ -98,9 +98,6 @@ function test_string_equal_with_duration {
     fill_ellipsis_tail 42 ' ' ${DESCRIPTION}                                      && echo -n " "
     fill_ellipsis_tail 32 ' ' "$(with_color yellow expected:) ${EXPECTED_STRING}" && echo -n " "
     fill_ellipsis_tail 30 ' ' "$(with_color yellow actual:) ${ACTUAL_STRING}"     && echo -n " "
-    # fill_ellipsis_tail 18 ' ' "$(with_color yellow ret:) ${EXPECTED_RETURN_VALUE}" && echo -n " "
-    # fill_ellipsis_tail 25 ' ' "$(with_color yellow out:) ${EXPECTED_STDOUT_VALUE}" && echo -n " "
-    # fill_ellipsis_tail 18 ' ' "$(with_color yellow err:) ${EXPECTED_STDERR_VALUE}"
 
     # Check if test was successful.
     test ${EXPECTED_STRING} = ${ACTUAL_STRING} || TEST_SUCC=0

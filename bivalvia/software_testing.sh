@@ -78,6 +78,10 @@ function print_comparison_in_plaintext_and_hex {
     echo "${ACTUAL_VALUE}" | hexdump -C
 }
 
+# For each test result mismatch in one of the three results types
+# return code, stdout and stderr, print the expected and actual
+# value. Return code is printed as integer only. Stdout and stderr are
+# printed in plain text and hex.
 function describe_test_failure {
     local FUNCTION_NAME="${1}"
     local EXPECTED_RETURN_VALUE="${2}" EXPECTED_STDOUT_VALUE="${3}" EXPECTED_STDERR_VALUE="${4}"

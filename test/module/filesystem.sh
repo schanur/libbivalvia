@@ -3,8 +3,8 @@ set -o errexit -o nounset -o pipefail
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")/../../bivalvia"
 TEST_DATA_PATH="$(dirname "${BASH_SOURCE[0]}")/../data"
 
-
 source "${BIVALVIA_PATH}/filesystem.sh"
+
 
 # echo
 # file "${TEST_DATA_PATH}"

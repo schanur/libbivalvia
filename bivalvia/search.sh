@@ -1,4 +1,3 @@
-
 # Returns the number of lines in the file $1 that are an exact match
 # of the string $2. That means there are no characters in front of or
 # behind the string.

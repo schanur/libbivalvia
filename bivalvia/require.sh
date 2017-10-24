@@ -3,6 +3,7 @@ BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 # Do not include "debug.sh"
 source ${BIVALVIA_PATH}/numerical.sh
+source ${BIVALVIA_PATH}/network.sh
 
 
 BIVALVIA_REQUIRE__INIT=0
@@ -154,6 +155,17 @@ function require_larger_equal {
 
     if [ ${ACTUAL_VALUE} -lt ${LIMIT} ]; then
         require_failed "Variable is too small: ${ACTUAL_VALUE}"
+    fi
+}
+
+
+function require_host_resolvable {
+    local HOSTNAME="${1}"
+    local HOSTNAME_RESOLVABLE
+
+    HOSTNAME_RESOLVABLE=$(hostname_is_resolvable "${HOSTNAME}")
+    if [ ${HOSTNAME_RESOLVABLE} -ne 1 ]; then
+        require_failed "Cannot resolve hostname: ${HOSTNAME}"
     fi
 }
 

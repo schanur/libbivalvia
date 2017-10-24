@@ -14,3 +14,4 @@ function hostname_is_resolvable {
 
     echo ${HOSTNAME_RESOLVABLE}
 }
+

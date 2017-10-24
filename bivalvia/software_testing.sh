@@ -63,22 +63,35 @@ function run_desc_tests_from_module {
 
 # }
 
+function print_comparison_in_plaintext_and_hex {
+    local EXPECT_DESC="${1}"
+    local EXPECT_VALUE="${2}"
+    local ACTUAL_DESC="${3}"
+    local ACTUAL_VALUE="${4}"
+
+    echo "${EXPECT_DESC}: >> ${EXPECT_VALUE} <<"
+    echo "${ACTUAL_DESC}: >> ${ACTUAL_VALUE} <<"
+
+    echo "${EXPECT_DESC}:"
+    echo "${EXPECT_VALUE}" | hexdump -C
+    echo "${ACTUAL_DESC}:"
+    echo "${ACTUAL_VALUE}" | hexdump -C
+}
+
 function describe_test_failure {
     local FUNCTION_NAME="${1}"
     local EXPECTED_RETURN_VALUE="${2}" EXPECTED_STDOUT_VALUE="${3}" EXPECTED_STDERR_VALUE="${4}"
     local ACTUAL_RETURN_VALUE="${5}"   ACTUAL_STDOUT_VALUE="${6}"   ACTUAL_STDERR_VALUE="${7}"
 
-    if [ ${EXPECTED_RETURN_VALUE}   -ne  ${ACTUAL_RETURN_VALUE} ]; then
-        echo "Expected return value:  >> ${EXPECTED_RETURN_VALUE} <<"
-        echo "Actual return value:    >> ${ACTUAL_RETURN_VALUE} <<"
+    if [  ${EXPECTED_RETURN_VALUE}  -ne  ${ACTUAL_RETURN_VALUE}  ]; then
+        echo "Expected return value: >> ${EXPECTED_RETURN_VALUE} <<"
+        echo "Actual return value:   >> ${ACTUAL_RETURN_VALUE} <<"
     fi
     if [ "${EXPECTED_STDOUT_VALUE}"  != "${ACTUAL_STDOUT_VALUE}" ]; then
-        echo "Expected stdout value:  >> ${EXPECTED_STDOUT_VALUE} <<"
-        echo "Actual stdout value:    >> ${ACTUAL_STDOUT_VALUE} <<"
+        print_comparison_in_plaintext_and_hex "Expected stdout value" "${EXPECTED_STDOUT_VALUE}" "Actual stdout value" "${ACTUAL_STDOUT_VALUE}"
     fi
     if [ "${EXPECTED_STDERR_VALUE}"  != "${ACTUAL_STDERR_VALUE}" ]; then
-        echo "Expected stderr value:  >> ${EXPECTED_STDERR_VALUE} <<"
-        echo "Actual stderr value:    >> ${ACTUAL_STDERR_VALUE} <<"
+        print_comparison_in_plaintext_and_hex "Expected stderr value" "${EXPECTED_STDERR_VALUE}" "Actual stderr value" "${ACTUAL_STDERR_VALUE}"
     fi
 }
 

@@ -145,6 +145,8 @@ function require_numeric_value {
     fi
 }
 
+# Require that the first parameter is equal or larger than the second
+# parameter.
 function require_larger_equal {
     require_parameters_not_empty ${*}
 

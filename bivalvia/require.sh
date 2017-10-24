@@ -1,7 +1,7 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 
-source ${BIVALVIA_PATH}/debug.sh
+# Do not include "debug.sh"
 source ${BIVALVIA_PATH}/numerical.sh
 
 

@@ -14,6 +14,7 @@ function stack_trace {
             break
         fi
         local FUNC=${FUNCNAME[${I}]}
+        # local FUNC_PARAMETERS=${BASH_ARGV[${I}]}
         [ "$FUNC" = "" ] && func="MAIN"
         local LINE_NO="${BASH_LINENO[(( I - 1 ))]}"
         local SRC="${BASH_SOURCE[${I}]}"
@@ -21,10 +22,10 @@ function stack_trace {
 
         # echo ${I} ${FUNC} ${SRC} ${LINE_NO} >&2
 
-        (fill_ellipsis_tail   3 ' ' ${I}         && echo -n " ") >&2
-        (fill_ellipsis_tail  30 ' ' ${FUNC}      && echo -n " ") >&2
-        (fill_ellipsis_front 40 ' ' ${SRC}       && echo -n " ") >&2
-        (fill_ellipsis_front  5 ' ' ${LINE_NO}   && echo       ) >&2
+        (fill_ellipsis_tail   3 ' ' "${I}"         && echo -n " ") >&2
+        (fill_ellipsis_tail  30 ' ' "${FUNC}"      && echo -n " ") >&2
+        (fill_ellipsis_front 40 ' ' "${SRC}"       && echo -n " ") >&2
+        (fill_ellipsis_front  5 ' ' "${LINE_NO}"   && echo       ) >&2
 
     done
 }
@@ -39,7 +40,7 @@ function dbg_msg {
 # print_var VAR1
 # VAR1: abc
 function print_var {
-    local VARIABLE_NAME=${1}
+    local VARIABLE_NAME="${1}"
     local INDENTATION_DEPTH
 
     if [ ${#} -eq 2 ]; then

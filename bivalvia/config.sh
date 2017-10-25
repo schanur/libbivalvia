@@ -36,49 +36,49 @@ function set_config_path {
 # first parameter. This is currently for unit tests only. But maybe we
 # will find other use cases later.
 function set_config_hostname {
-    local NEW_CONFIG_HOSTNAME=${1}
+    local NEW_CONFIG_HOSTNAME="${1}"
 
     CONFIG_HOSTNAME="${NEW_CONFIG_HOSTNAME}"
 }
 
 function profile_path {
-    require_directory ${CONFIG_PATH}
+    require_directory "${CONFIG_PATH}"
 
-    local HOSTNAME=${CONFIG_HOSTNAME}
-    local PROFILE_PATH=${CONFIG_PATH}/profile/${HOSTNAME}
+    local HOSTNAME="${CONFIG_HOSTNAME}"
+    local PROFILE_PATH="${CONFIG_PATH}/profile/${HOSTNAME}"
 
-    echo ${PROFILE_PATH}
+    echo "${PROFILE_PATH}"
 }
 
 function global_path {
-    require_directory ${CONFIG_PATH}
+    require_directory "${CONFIG_PATH}"
 
-    local GLOBAL_PATH=${CONFIG_PATH}/global
+    local GLOBAL_PATH="${CONFIG_PATH}/global"
 
-    echo ${GLOBAL_PATH}
+    echo "${GLOBAL_PATH}"
 }
 
 function profile_config_filename {
-    local RELATIVE_CONFIG_FILENAME=${1}
-    local PROFILE_PATH=$(profile_path)
+    local RELATIVE_CONFIG_FILENAME="${1}"
+    local PROFILE_PATH="$(profile_path)"
     local ABSOLUTE_CONFIG_FILENAME="${PROFILE_PATH}/${RELATIVE_CONFIG_FILENAME}"
 
-    echo ${ABSOLUTE_CONFIG_FILENAME}
+    echo "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
 function global_config_filename {
-    local RELATIVE_CONFIG_FILENAME=${1}
-    local GLOBAL_PATH=$(global_path)
+    local RELATIVE_CONFIG_FILENAME="${1}"
+    local GLOBAL_PATH="$(global_path)"
     local ABSOLUTE_CONFIG_FILENAME="${GLOBAL_PATH}/${RELATIVE_CONFIG_FILENAME}"
 
-    echo ${ABSOLUTE_CONFIG_FILENAME}
+    echo "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
 function profile_config_file_exists {
     local ABSOLUTE_CONFIG_FILENAME="$(profile_config_filename ${1})"
     local CONTAINS_CONFIG_FILE=0
 
-    if [ -r ${ABSOLUTE_CONFIG_FILENAME} ]; then
+    if [ -r "${ABSOLUTE_CONFIG_FILENAME}" ]; then
         CONTAINS_CONFIG_FILE=1
     fi
 
@@ -89,7 +89,7 @@ function global_config_file_exists {
     local ABSOLUTE_CONFIG_FILENAME="$(global_config_filename ${1})"
     local CONTAINS_CONFIG_FILE=0
 
-    if [ -r ${ABSOLUTE_CONFIG_FILENAME} ]; then
+    if [ -r "${ABSOLUTE_CONFIG_FILENAME}" ]; then
         CONTAINS_CONFIG_FILE=1
     fi
 
@@ -97,12 +97,12 @@ function global_config_file_exists {
 }
 
 function config_file_exists {
-    local RELATIVE_CONFIG_FILENAME=${1}
+    local RELATIVE_CONFIG_FILENAME="${1}"
     local CONFIG_FILE_EXISTS=0
 
-    if   [ $(profile_config_file_exists ${RELATIVE_CONFIG_FILENAME}) = "1" ]; then
+    if   [ $(profile_config_file_exists "${RELATIVE_CONFIG_FILENAME}") = "1" ]; then
         CONFIG_FILE_EXISTS=1
-    elif [ $(global_config_file_exists  ${RELATIVE_CONFIG_FILENAME}) = "1" ]; then
+    elif [ $(global_config_file_exists  "${RELATIVE_CONFIG_FILENAME}") = "1" ]; then
         CONFIG_FILE_EXISTS=1
     fi
 
@@ -110,54 +110,54 @@ function config_file_exists {
 }
 
 function absolute_config_file {
-    local RELATIVE_CONFIG_FILENAME=${1}
+    local RELATIVE_CONFIG_FILENAME="${1}"
     local ABSOLUTE_CONFIG_FILENAME=""
 
-    if   [ $(profile_config_file_exists ${RELATIVE_CONFIG_FILENAME}) = "1" ]; then
-        ABSOLUTE_CONFIG_FILENAME=$(profile_config_filename ${RELATIVE_CONFIG_FILENAME})
-    elif [ $(global_config_file_exists  ${RELATIVE_CONFIG_FILENAME}) = "1" ]; then
-        ABSOLUTE_CONFIG_FILENAME=$(global_config_filename  ${RELATIVE_CONFIG_FILENAME})
+    if   [ $(profile_config_file_exists "${RELATIVE_CONFIG_FILENAME}") = "1" ]; then
+        ABSOLUTE_CONFIG_FILENAME="$(profile_config_filename "${RELATIVE_CONFIG_FILENAME}")"
+    elif [ $(global_config_file_exists  "${RELATIVE_CONFIG_FILENAME}") = "1" ]; then
+        ABSOLUTE_CONFIG_FILENAME="$(global_config_filename  "${RELATIVE_CONFIG_FILENAME}")"
     else
         echo "Config file not found: ${RELATIVE_CONFIG_FILENAME}"
     fi
 
-    require_file ${ABSOLUTE_CONFIG_FILENAME}
+    require_file "${ABSOLUTE_CONFIG_FILENAME}"
 
-    echo ${ABSOLUTE_CONFIG_FILENAME}
+    echo "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
 function load_config_file {
-    local RELATIVE_CONFIG_FILENAME=${1}
-    local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
+    local RELATIVE_CONFIG_FILENAME="${1}"
+    local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file "${RELATIVE_CONFIG_FILENAME}")"
 
-    require_file ${ABSOLUTE_CONFIG_FILENAME}
+    require_file "${ABSOLUTE_CONFIG_FILENAME}"
 
-    source ${ABSOLUTE_CONFIG_FILENAME}
+    source "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
 function load_config_file_once {
-    local RELATIVE_CONFIG_FILENAME=${1}
+    local RELATIVE_CONFIG_FILENAME="${1}"
     local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
 
-    require_file ${ABSOLUTE_CONFIG_FILENAME}
+    require_file "${ABSOLUTE_CONFIG_FILENAME}"
 
-    source ${ABSOLUTE_CONFIG_FILENAME}
+    source "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
 function load_config_file_if_exists {
-    local RELATIVE_CONFIG_FILENAME=${1}
+    local RELATIVE_CONFIG_FILENAME="${1}"
     local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
 
-    if [ $(config_file_exists) = "1" ]; then
-        source ${ABSOLUTE_CONFIG_FILENAME}
+    if [ $(config_file_exists "${ABSOLUTE_CONFIG_FILENAME}") = "1" ]; then
+        source "${ABSOLUTE_CONFIG_FILENAME}"
     fi
 }
 
 function load_config_file_if_exists_once {
-    local RELATIVE_CONFIG_FILENAME=${1}
+    local RELATIVE_CONFIG_FILENAME="${1}"
     local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
 
-    if [ $(config_file_exists) = "1" ]; then
-        source ${ABSOLUTE_CONFIG_FILENAME}
+    if [ $(config_file_exists "${ABSOLUTE_CONFIG_FILENAME}") = "1" ]; then
+        source "${ABSOLUTE_CONFIG_FILENAME}"
     fi
 }

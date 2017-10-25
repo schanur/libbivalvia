@@ -16,7 +16,7 @@ function github_git_prerequirements {
 }
 
 function github_repos_by_user {
-    local USERNAME=${1}
+    local USERNAME="${1}"
     local CACHE_OBJ_NAME="github_repos_by_user.${USERNAME}"
     local CURL_CMD_STR="curl -s 'https://api.github.com/users/${USERNAME}/repos?page=1&per_page=100'"
     local GITHUB_REPO_LIST_RAW
@@ -26,12 +26,12 @@ function github_repos_by_user {
 
     print_var CURL_CMD_STR
 
-    if [ $(cache__is_available ${CACHE_OBJ_NAME}) -eq 1 ]; then
+    if [ $(cache__is_available "${CACHE_OBJ_NAME}") -eq 1 ]; then
         echo "Load cached version"
         GITHUB_REPO_LIST="$(cache__load ${CACHE_OBJ_NAME})"
     else
         echo "Load from internet"
-        echo ${CURL_CMD_STR}
+        echo "${CURL_CMD_STR}"
         echo "$(eval ${CURL_CMD_STR})"
         # GITHUB_REPO_LIST_RAW=$(${CURL_CMD_STR})
         # GITHUB_REPO_LIST_RAW="$(curl -s 'https://api.github.com/users/${USERNAME}/repos?page=1&per_page=100')"
@@ -57,13 +57,13 @@ function github_repos_by_user {
         exit 1
         if [ ${EXIT_CODE} -eq 0 ]; then
             echo "Update cache"
-            cache__update ${CACHE_OBJ_NAME} ${GITHUB_REPO_LIST}
+            cache__update "${CACHE_OBJ_NAME}" "${GITHUB_REPO_LIST}"
         fi
     fi
 }
 
 function github_repo_exists {
-    local REPO_NAME=${1}
+    local REPO_NAME="${1}"
 
     github_repos_by_user
 }
@@ -124,8 +124,8 @@ function create_local_repo {
 
 function git_repo_exists {
     local REMOTE_URL="${1}"
-    local REPO_NAME=$(basename ${REMOTE_URL})
-    local REPO_NAME_WITHOUT_EXT=$(echo ${REPO_NAME} | sed -e 's/\.git$//g')
+    local REPO_NAME="$(basename "${REMOTE_URL}")"
+    local REPO_NAME_WITHOUT_EXT=$(echo "${REPO_NAME}" | sed -e 's/\.git$//g')
     local REPO_EXISTS=0
 
     print_var_list REMOTE_URL REPO_NAME REPO_NAME_WITHOUT_EXT
@@ -133,7 +133,7 @@ function git_repo_exists {
     case ${REMOTE_URL} in
         https://github.com/*)
             github_git_prerequirements
-            if [ $(github_repos_by_user ${GITHUB__USERNAME} | egrep -c "^${REPO_NAME_WITHOUT_EXT}\$") -eq 1 ]; then
+            if [ $(github_repos_by_user "${GITHUB__USERNAME}" | egrep -c "^${REPO_NAME_WITHOUT_EXT}\$") -eq 1 ]; then
                 REPO_EXISTS=1
             fi
             ;;
@@ -164,7 +164,7 @@ function git_repo_exists {
 function create_git_repo {
     local REMOTE_URL="${1}"
 
-    case ${REMOTE_URL} in
+    case "${REMOTE_URL}" in
         https://github.com/*)
             create_github_repo
             ;;

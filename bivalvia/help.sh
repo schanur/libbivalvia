@@ -23,7 +23,7 @@ function parse_section_positions {
     if [ ${PARSED} = "1" ]; then
         return
     fi
-    local SCRIPT_NAME=${1}
+    local SCRIPT_NAME="${1}"
     local EMPTY_LINE
     local IN_SECTION=0
     local LINE_NO=1

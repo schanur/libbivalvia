@@ -1,7 +1,6 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
-source ${BIVALVIA_PATH}/require.sh
+source "${BIVALVIA_PATH}/require.sh"
 
 
 # Prints absolute path of file. If the parameter is a directory, the

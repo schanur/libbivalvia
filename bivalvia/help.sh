@@ -1,7 +1,7 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
-source ${BIVALVIA_PATH}/io.sh
+source "${BIVALVIA_PATH}/io.sh"
+# source "${BIVALVIA_PATH}/debug.sh"
 
 
 declare -a GL_SECTION_POS_START

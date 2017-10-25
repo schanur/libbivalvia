@@ -1,9 +1,10 @@
-
 # Sets stricter language handling (exit on error, exit on unset
 # variables, exit on pipe error and exit on sigint) and give a strack
 # trace on each of these events.
 
-source "${DOTFILES_PATH}/lib/bivalvia/debug.sh"
+BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
+
+source "${BIVALVIA_PATH}/debug.sh"
 
 
 function default_exit_trap {

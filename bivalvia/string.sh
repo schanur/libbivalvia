@@ -3,7 +3,7 @@ BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 # Do not include debug.sh here!
 
-# source ${BIVALVIA_PATH}/require.sh
+# source "${BIVALVIA_PATH}/require.sh"
 
 
 # "a bcd ef" => "3"

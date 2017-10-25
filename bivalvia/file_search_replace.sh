@@ -1,6 +1,5 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
 source "${BIVALVIA_PATH}/error.sh"
 
 

@@ -1,6 +1,5 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
 source "${BIVALVIA_PATH}/config.sh"
 source "${BIVALVIA_PATH}/require.sh"
 

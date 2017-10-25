@@ -1,6 +1,5 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
 source "${BIVALVIA_PATH}/color.sh"
 source "${BIVALVIA_PATH}/date.sh"
 source "${BIVALVIA_PATH}/debug.sh" # FIXME: Remove
@@ -62,6 +61,7 @@ function run_desc_tests_from_module {
 # function print_test_result {
 
 # }
+
 
 function print_comparison_in_plaintext_and_hex {
     local EXPECT_DESC="${1}"

@@ -1,7 +1,6 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
-source ${BIVALVIA_PATH}/debug.sh
+source "${BIVALVIA_PATH}/debug.sh"
 
 
 # Returns 1 if the file given as parameter sets the PATH variable. 0

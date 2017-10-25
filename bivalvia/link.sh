@@ -1,9 +1,8 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
-source ${BIVALVIA_PATH}/date.sh
-source ${BIVALVIA_PATH}/require.sh
-source ${BIVALVIA_PATH}/path.sh
+source "${BIVALVIA_PATH}/date.sh"
+source "${BIVALVIA_PATH}/require.sh"
+source "${BIVALVIA_PATH}/path.sh"
 
 
 function ln_support_relative_linking {

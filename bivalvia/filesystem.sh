@@ -49,3 +49,9 @@ function files_and_dirs_in_path_recursive {
 
     not_implemented_error
 }
+
+function file_size {
+    local FILENAME="${1}"
+
+    ls -l "${FILENAME}" | cut -f 5 -d ' '
+}

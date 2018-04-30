@@ -95,11 +95,11 @@ function backup_config_and_create_link {
 
 
     if [ -L "${LINK_NAME}" ]; then
-        echo "Link filename alreday exists: ${LINK_NAME}"
+        echo "Link filename already exists: ${LINK_NAME}"
         echo "Is symbolic link"
         require_file_or_directory "${LINK_TARGET}"
 
-        FUNCTION_LINKS_TO_TARGET=$(links_to_target "${ABSOLUTE_LINK_TARGET}" "${ABSOLUTE_LINK_NAME}")
+        FUNCTION_LINKS_TO_TARGET=$(links_to_target "${LINK_TARGET}" "${ABSOLUTE_LINK_NAME}")
         if [ "${FUNCTION_LINKS_TO_TARGET}" = "1" ]; then
             echo "Ignore ${LINK_NAME}. Already links to the desired destination."
         else

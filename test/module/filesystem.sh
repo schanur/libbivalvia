@@ -13,3 +13,7 @@ FILE_SIZE_FUNC_DATA_PATH="${DATA_PATH}/func_file_size"
 
 test_function_stdout file_size                     0     "${FILE_SIZE_FUNC_DATA_PATH}/empty"
 test_function_stdout file_size                     10    "${FILE_SIZE_FUNC_DATA_PATH}/10_byte"
+
+
+# test_function_stdout file_size                     1 test.conf
+# test_function_stdout global_config_file_exists     1 test.conf

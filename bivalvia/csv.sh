@@ -26,7 +26,7 @@ function csv_field_count {
 }
 
 function csv_field_exists {
-    local FIELD_STR=${1}
+    local FIELD_STR="${1}"
     local FIELD_EXISTS=0
     shift
     local CSV_LINE=${*}
@@ -39,7 +39,7 @@ function csv_field_exists {
 }
 
 function csv_push_back {
-    local NEW_FIELD=${1}
+    local NEW_FIELD="${1}"
     shift
     local CSV_LINE=${*}
 

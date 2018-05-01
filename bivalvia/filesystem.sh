@@ -1,6 +1,5 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
-
 source "${BIVALVIA_PATH}/error.sh"
 source "${BIVALVIA_PATH}/require.sh"
 
@@ -49,4 +48,10 @@ function files_and_dirs_in_path_recursive {
     local SEARCH_PATH="${1}"
 
     not_implemented_error
+}
+
+function file_size {
+    local FILENAME="${1}"
+
+    ls -l "${FILENAME}" | cut -f 5 -d ' '
 }

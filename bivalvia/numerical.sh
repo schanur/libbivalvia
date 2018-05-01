@@ -18,9 +18,13 @@ function fraction_to_percentage {
     local DENOMINATOR=${2}
     local PERCENTAGE
 
-    (( PERCENTAGE = (NOMINATOR * 100) / DENOMINATOR ))
+    if [ ${DENOMINATOR} -eq 0 ]; then
+        PERCENTAGE=100
+    else
+        (( PERCENTAGE = (NOMINATOR * 100) / DENOMINATOR ))
+    fi
 
-    echo ${PERCENTAGE}
+    echo -n ${PERCENTAGE}
 }
 
 # "1 3" => "3"

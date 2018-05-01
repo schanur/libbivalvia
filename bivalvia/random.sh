@@ -1,5 +1,7 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
+source "${BIVALVIA_PATH}/error.sh"
+
 
 # Valid input is 1, 2, 4, 8.
 function random_n_byte_decimal {
@@ -41,4 +43,16 @@ function random {
     DIVIDED_RANDOM_NUMBER=$(( VALID_RANGE_RANDOM_NUMBER / DIVISOR ))
 
     echo ${DIVIDED_RANDOM_NUMBER}
+}
+
+function random_file_from_path {
+    local SEARCH_PATH="${1}"
+
+    find "${SEARCH_PATH}" -maxdepth 1 ! -type d | shuf -n 1
+}
+
+function random_file_from_path_recursive {
+    local SEARCH_PATH="${1}"
+
+    find "${SEARCH_PATH}" ! -type d | shuf -n 1
 }

@@ -7,7 +7,7 @@ source "${BIVALVIA_PATH}/software_testing.sh"
 source "${BIVALVIA_PATH}/lockfile.sh"
 
 
-TEST_RUN_PATH="${BIVALVIA_PATH}/../2test/run/lockfile"
+TEST_RUN_PATH="${BIVALVIA_PATH}/../test/run/lockfile"
 
 
 # Cleanup old test runs.

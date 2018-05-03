@@ -18,12 +18,14 @@ function csv_get_field {
     echo ${FIELD_VALUE}
 }
 
+
 function csv_field_count {
     local CSV_LINE=${*}
     local FIELD_COUNT=0
 
     echo "${CSV_LINE}" | sed -e 's/,/\n/g' | wc -l
 }
+
 
 function csv_field_exists {
     local FIELD_STR="${1}"
@@ -37,6 +39,7 @@ function csv_field_exists {
 
     echo ${FIELD_EXISTS}
 }
+
 
 function csv_push_back {
     local NEW_FIELD="${1}"

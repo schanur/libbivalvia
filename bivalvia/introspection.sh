@@ -16,6 +16,7 @@ function list_functions {
     cat "${MODULE_FILENAME}" |grep -e "^function[a-zA-Z0-9_]*" | cut -f 2 -d ' '
 }
 
+
 function function_decl_line_no {
     local MODULE_FILENAME="${1}"
     local FUNCTION_NAME="${2}"
@@ -23,6 +24,7 @@ function function_decl_line_no {
     # cat "${MODULE_FILENAME}" |grep -e "^${FUNCTION_NAME}.*"
     cat "${MODULE_FILENAME}" |grep -ne "^function ${FUNCTION_NAME}" | cut -f 1 -d ':'
 }
+
 
 function function_description {
     true

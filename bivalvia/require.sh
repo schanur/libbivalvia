@@ -36,6 +36,7 @@ function require_failed {
     fi
 }
 
+
 function require_parameters_not_empty {
     ALL_PARAMETERS=${*}
 
@@ -43,6 +44,7 @@ function require_parameters_not_empty {
         require_failed "Parameters are empty."
     fi
 }
+
 
 # Check if the binary/script filename exists in a path specified in the PATH variable. If no match is found, an error message is printed to stderr and the script terminates with an error.
 function require_executable {
@@ -57,6 +59,7 @@ function require_executable {
     fi
 }
 
+
 function require_exists {
     require_parameters_not_empty ${*}
 
@@ -66,6 +69,7 @@ function require_exists {
         require_failed "File not found: ${FILENAME}"
     fi
 }
+
 
 function require_file {
     require_parameters_not_empty ${*}
@@ -77,6 +81,7 @@ function require_file {
     fi
 }
 
+
 function require_directory {
     require_parameters_not_empty ${*}
 
@@ -86,6 +91,7 @@ function require_directory {
         require_failed "Directory not found: ${FILENAME}"
     fi
 }
+
 
 function require_file_or_directory {
     require_parameters_not_empty ${*}
@@ -97,6 +103,7 @@ function require_file_or_directory {
     fi
 }
 
+
 function require_sybolic_link {
     require_parameters_not_empty ${*}
 
@@ -106,6 +113,7 @@ function require_sybolic_link {
         require_failed "Symbolic link not found: ${LINK_NAME}"
     fi
 }
+
 
 function require_block_special {
     require_parameters_not_empty ${*}
@@ -117,6 +125,7 @@ function require_block_special {
     fi
 }
 
+
 function require_variable {
     require_parameters_not_empty ${*}
 
@@ -126,6 +135,7 @@ function require_variable {
         require_failed "Variable not set: ${LINK_NAME}"
     fi
 }
+
 
 function require_numeric_value {
     local REQUIRE_FAILED=0
@@ -144,6 +154,7 @@ function require_numeric_value {
     fi
 }
 
+
 # Require that the first parameter is equal or larger than the second
 # parameter.
 function require_larger_equal {
@@ -159,10 +170,12 @@ function require_larger_equal {
     fi
 }
 
+
 # TODO: Implement. Define what hostname RFC/spec is used.
 # function require_valid_hostname {
 
 # }
+
 
 function require_host_resolvable {
     local HOSTNAME="${1}"
@@ -173,6 +186,7 @@ function require_host_resolvable {
         require_failed "Cannot resolve hostname: ${HOSTNAME}"
     fi
 }
+
 
 function require_equal_numeric_value {
     require_parameters_not_empty ${*}

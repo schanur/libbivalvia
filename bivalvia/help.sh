@@ -18,6 +18,7 @@ function clear_section_positions {
     done
 }
 
+
 function parse_section_positions {
     if [ ${PARSED} = "1" ]; then
         return
@@ -57,6 +58,7 @@ function parse_section_positions {
     # print_section_positions # FIXME: Remove
 }
 
+
 function print_section_positions {
     local I
 
@@ -64,6 +66,7 @@ function print_section_positions {
         echo "${I}: ${GL_SECTION_POS_START[${I}]} ${GL_SECTION_POS_END[${I}]}"
     done
 }
+
 
 # Print the text of a section of a script. The first parameter is the
 # script filename. The second one is the section number.
@@ -88,12 +91,14 @@ function shebang {
     print_section           "${SCRIPT_FILENAME}" 1
 }
 
+
 function short_description {
     local SCRIPT_FILENAME="${1}"
 
     parse_section_positions "${SCRIPT_FILENAME}"
     print_section           "${SCRIPT_FILENAME}" 2
 }
+
 
 function long_description {
     local SCRIPT_FILENAME="${1}"
@@ -102,12 +107,14 @@ function long_description {
     print_section           "${SCRIPT_FILENAME}" 3
 }
 
+
 function usage {
     local SCRIPT_FILENAME=${1}
 
     parse_section_positions "${SCRIPT_FILENAME}"
     print_section           "${SCRIPT_FILENAME}" 4
 }
+
 
 function has_short_description {
     local SECTION_EXISTS=0
@@ -118,6 +125,7 @@ function has_short_description {
     echo ${SECTION_EXISTS}
 }
 
+
 function has_long_description {
     local SECTION_EXISTS=0
     if [ ${GL_SECTION_CNT} -ge 3 ]; then
@@ -127,6 +135,7 @@ function has_long_description {
     echo ${SECTION_EXISTS}
 }
 
+
 function has_usage {
     local SECTION_EXISTS=0
     if [ ${GL_SECTION_CNT} -ge 4 ]; then
@@ -135,6 +144,7 @@ function has_usage {
 
     echo ${SECTION_EXISTS}
 }
+
 
 # Print the help section of a script, consisting of the script name,
 # the short description and the long description.
@@ -154,6 +164,7 @@ function help {
     fi
 }
 
+
 # If the first parameter is "--help" or "-h", print the help to stdout
 # and exit without error.
 function parse_help_parameter {
@@ -166,6 +177,7 @@ function parse_help_parameter {
         esac
     fi
 }
+
 
 # The script was called with a wrong number of arguments or the
 # arguments cannot be parsed. We print the help section of the script
@@ -185,5 +197,6 @@ function invalid_parameter_exit {
     #define EX_USAGE        64      /* command line usage error */
     exit 64
 }
+
 
 parse_help_parameter "${@}"

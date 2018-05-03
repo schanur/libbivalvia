@@ -18,6 +18,7 @@ function files_in_path {
     # local SEARCH_PATH="$1"
 }
 
+
 function file_basenames_in_path {
     local SEARCH_PATH="${1}"
 
@@ -32,11 +33,13 @@ function file_basenames_in_path {
     # local SEARCH_PATH="$1"
 }
 
+
 function files_and_dirs_in_path {
     local SEARCH_PATH="${1}"
 
     not_implemented_error
 }
+
 
 function files_in_path_recursive {
     local SEARCH_PATH="${1}"
@@ -44,11 +47,13 @@ function files_in_path_recursive {
     not_implemented_error
 }
 
+
 function files_and_dirs_in_path_recursive {
     local SEARCH_PATH="${1}"
 
     not_implemented_error
 }
+
 
 function file_size {
     local FILENAME="${1}"

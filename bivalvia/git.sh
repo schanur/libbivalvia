@@ -15,6 +15,7 @@ function github_git_prerequirements {
     require_variable GITHUB__USERNAME
 }
 
+
 function github_repos_by_user {
     local USERNAME="${1}"
     local CACHE_OBJ_NAME="github_repos_by_user.${USERNAME}"
@@ -62,11 +63,13 @@ function github_repos_by_user {
     fi
 }
 
+
 function github_repo_exists {
     local REPO_NAME="${1}"
 
     github_repos_by_user
 }
+
 
 function create_github_repo {
     not_implemented_error
@@ -74,53 +77,66 @@ function create_github_repo {
     # Manually add new repo to cache file
 }
 
+
 function gitlab_git_prerequirements {
     not_implemented_error
 }
+
 
 function gitlab_repos_by_user {
     not_implemented_error
 }
 
+
 function gitlab_repo_exists {
     not_implemented_error
 }
+
 
 function create_gitlab_repo {
     not_implemented_error
 }
 
+
 function ssh_git_prerequirements {
     not_implemented_error
 }
+
 
 function ssh_repos_by_user {
     not_implemented_error
 }
 
+
 function ssh_repo_exists {
     not_implemented_error
 }
+
 
 function create_ssh_repo {
     not_implemented_error
 }
 
+
 function local_git_prerequirements {
     not_implemented_error
 }
+
 
 function local_repos_by_user {
     not_implemented_error
 }
 
+
 function local_repo_exists {
     not_implemented_error
 }
 
+
 function create_local_repo {
     not_implemented_error
 }
+
 
 function git_repo_exists {
     local REMOTE_URL="${1}"
@@ -160,6 +176,7 @@ function git_repo_exists {
 
     echo ${REPO_EXISTS}
 }
+
 
 function create_git_repo {
     local REMOTE_URL="${1}"

@@ -13,11 +13,13 @@ function default_exit_trap {
     stack_trace
 }
 
+
 function default_sigint_trap {
     echo "SIGINT received."
     stack_trace
     exit 1
 }
+
 
 function default_sigterm_trap {
     echo "SIGTERM received."
@@ -25,17 +27,20 @@ function default_sigterm_trap {
     exit 1
 }
 
+
 function default_sigpipe_trap {
     echo "SIGPIPE received."
     stack_trace
     exit 1
 }
 
+
 function default_err_trap {
     echo "ERR received."
     stack_trace
     exit 1
 }
+
 
 function default_nounset_trap {
     echo "NOUNSET received."

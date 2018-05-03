@@ -16,6 +16,7 @@ function absolute_path {
     echo "${ABS_PATH}"
 }
 
+
 # Prints a file with absolute path.
 function with_absolute_path {
     local FILE="${1}"
@@ -31,6 +32,7 @@ function with_absolute_path {
 
     echo "${WITH_ABSOLUTE_PATH}"
 }
+
 
 # Print the directory name of the deepest path of the absolute path of
 # the first parameter.
@@ -49,9 +51,9 @@ function deepest_path {
     echo "${DEEPEST_PATH}"
 }
 
+
 ## Maybe useful on systems where readlink is not supported or behaves
 ## differently (Mac OS).
-
 # function with_absolute_path {
 #     local ="$1"
 #     if [ -d "$path" ]

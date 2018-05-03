@@ -21,9 +21,11 @@ function file__count_str_match {
     echo ${NUM_CNT}
 }
 
+
 function file__replace_first_match {
     not_implemented_error
 }
+
 
 function file__replace_all_matches_in_file {
     not_implemented_error

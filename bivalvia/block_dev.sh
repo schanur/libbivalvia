@@ -10,6 +10,7 @@ function uuid_to_dev_filename {
     echo "${DEVICE_FILENAME}"
 }
 
+
 function uuid_to_open_luks_dev_filename {
     local UUID="${1}"
     local DEVICE_FILENAME="/dev/disk/by-uuid/${UUID}"
@@ -23,6 +24,7 @@ function uuid_to_open_luks_dev_filename {
 function mount_luks_dev_by_key_file {
     true
 }
+
 
 # Unmount a block device (by UUID) and close the LUKS device.
 function unmount_luks_dev {

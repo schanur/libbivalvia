@@ -12,6 +12,7 @@ function list_size {
     echo ${LIST_SIZE}
 }
 
+
 function list_is_empty {
     local LIST="${1}"
     local LIST_IS_EMPTY=0
@@ -39,13 +40,16 @@ function list_count_value {
     echo ${VALUE_COUNT}
 }
 
+
 function list_has_value {
     true
 }
 
+
 function list_new {
     echo -n ""
 }
+
 
 function list_add {
             local LIST_1="${1}"
@@ -53,6 +57,7 @@ function list_add {
 
             echo "${LIST_1}${LIST_2}"
 }
+
 
 # Warning: Has quadratic computation complexity.
 # function list_sub {

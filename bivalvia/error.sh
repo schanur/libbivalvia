@@ -13,6 +13,7 @@ function critical_error {
     exit 1
 }
 
+
 function not_implemented_error {
     critical_error "Not implemented"
 }

@@ -13,6 +13,7 @@ function text_at_file_line_no_range {
     cat "${FILENAME}" | tail -n +${START_LINE} |head -n ${RANGE_LENGTH}
 }
 
+
 # Prints the content of a line of a file.
 function text_at_file_line_no {
     local FILENAME="${1}"

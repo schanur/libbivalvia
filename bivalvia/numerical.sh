@@ -13,6 +13,7 @@ function is_number {
     echo ${IS_NUMBER}
 }
 
+
 function fraction_to_percentage {
     local NOMINATOR=${1}
     local DENOMINATOR=${2}
@@ -26,6 +27,7 @@ function fraction_to_percentage {
 
     echo -n ${PERCENTAGE}
 }
+
 
 # "1 3" => "3"
 # "3 1" => "3"

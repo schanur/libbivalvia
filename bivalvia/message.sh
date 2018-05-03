@@ -130,6 +130,7 @@ function msg_num_to_formated_msg_level_str {
     echo "${FORMATED_STR}"
 }
 
+
 # Print message. First parameter is interpreted as message level
 # string. Message levels include all that are defined by Syslog plus
 # trace.

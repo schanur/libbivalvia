@@ -3,6 +3,7 @@ BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 source "${BIVALVIA_PATH}/string.sh"
 # source "${BIVALVIA_PATH}/require.sh"
 
+
 function stack_trace {
     local I
 
@@ -30,9 +31,11 @@ function stack_trace {
     done
 }
 
+
 function dbg_msg {
     echo "${*}" >&2
 }
+
 
 # Print variable name and value.
 #
@@ -52,6 +55,7 @@ function print_var {
     fill_tail ${INDENTATION_DEPTH} ' ' "${VARIABLE_NAME}:"
     eval "echo \"\${${VARIABLE_NAME}}\""
 }
+
 
 # Print the names and value of all variable names in a proper
 # aligned table.

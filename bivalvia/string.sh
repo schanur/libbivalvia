@@ -20,6 +20,7 @@ function longest_string_length {
     echo ${MAX_STR_LENGTH}
 }
 
+
 function fill_tail {
     local LENGTH=${1}
     local FILL_CHARACTER=${2}
@@ -34,6 +35,7 @@ function fill_tail {
 
     echo -n "${STRING}"
 }
+
 
 function fill_front {
     local LENGTH=${1}
@@ -50,6 +52,7 @@ function fill_front {
     echo -n "${STRING}"
 }
 
+
 function fill_ellipsis_tail {
     local FILL_LENGTH=${1}
     shift
@@ -64,6 +67,7 @@ function fill_ellipsis_tail {
         echo -n "${STRING:0:${CHARS_TO_PRINT}}..."
     fi
 }
+
 
 function fill_ellipsis_front {
     local FILL_LENGTH=${1}

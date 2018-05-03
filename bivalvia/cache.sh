@@ -14,6 +14,7 @@ function cache__init {
     fi
 }
 
+
 function cache__update {
     require_directory "${CACHE_PATH}"
 
@@ -24,6 +25,7 @@ function cache__update {
 
     echo ${VALUE} > "${OBJECT_FILENAME}"
 }
+
 
 function cache__is_available {
     require_directory "${CACHE_PATH}"
@@ -39,6 +41,7 @@ function cache__is_available {
     echo ${CACHED_VERSION_AVAILABLE}
 }
 
+
 function cache__delete {
     require_directory "${CACHE_PATH}"
 
@@ -47,6 +50,7 @@ function cache__delete {
 
     rm $"{OBJECT_FILENAME}"
 }
+
 
 function cache__load {
     require_directory "${CACHE_PATH}"

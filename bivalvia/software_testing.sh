@@ -35,9 +35,11 @@ function set_test_start_time {
     GL_TEST_START_TIME=$(ms_since_epoch)
 }
 
+
 function set_test_end_time {
     GL_TEST_END_TIME=$(ms_since_epoch)
 }
+
 
 function test_duration {
     local TEST_DURATION=$(numeric_diff ${GL_TEST_END_TIME} ${GL_TEST_START_TIME})
@@ -45,18 +47,22 @@ function test_duration {
     echo ${TEST_DURATION}
 }
 
+
 function run_desc_tests_from_function {
     local MODULE_FILENAME="${1}"
     local FUNCTION_NAME="${2}"
 }
 
+
 function run_desc_tests_from_module {
     local MODULE_FILENAME="${1}"
 }
 
+
 # function print_test_desc {
 
 # }
+
 
 # function print_test_result {
 
@@ -78,6 +84,7 @@ function print_comparison_in_plaintext_and_hex {
     echo "${ACTUAL_VALUE}" | hexdump -C
 }
 
+
 # For each test result mismatch in one of the three results types
 # return code, stdout and stderr, print the expected and actual
 # value. Return code is printed as integer only. Stdout and stderr are
@@ -98,6 +105,7 @@ function describe_test_failure {
         print_comparison_in_plaintext_and_hex "Expected stderr value" "${EXPECTED_STDERR_VALUE}" "Actual stderr value" "${ACTUAL_STDERR_VALUE}"
     fi
 }
+
 
 # Check if 2 strings are equal. It shows a test summary line similar
 # to test_function. Use this function if you want to unit test
@@ -132,6 +140,7 @@ function test_string_equal_with_duration {
     with_color yellow "test_status:"
     echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) $(test_duration))"
 }
+
 
 # Similar to "test_string_equal_with_duration" but assume a test
 # duration of 0 milliseconds.
@@ -203,6 +212,7 @@ function test_function {
     fi
 }
 
+
 # Expect no stderr output and no stderr output.
 function test_function_return {
     local FUNCTION_NAME="${1}"
@@ -212,6 +222,7 @@ function test_function_return {
 
     test_function ${FUNCTION_NAME} ${EXPECTED_RETURN_VALUE} "" "" "${@}"
 }
+
 
 # Expect the return value 0 and no stderr output.
 function test_function_stdout {
@@ -223,6 +234,7 @@ function test_function_stdout {
     test_function ${FUNCTION_NAME} 0 "${EXPECTED_STDOUT_VALUE}" "" "${@}"
 }
 
+
 # Expect the return value 0 and no stdout output.
 function test_function_stderr {
     local FUNCTION_NAME="${1}"
@@ -233,6 +245,7 @@ function test_function_stderr {
     test_function ${FUNCTION_NAME} 0 "" "${EXPECTED_STDERR_VALUE}" "${@}"
 }
 
+
 function test_function_return_and_stdout {
     local FUNCTION_NAME="${1}"
     local EXPECTED_RETURN_VALUE="${2}"
@@ -242,6 +255,7 @@ function test_function_return_and_stdout {
 
     test_function ${FUNCTION_NAME} "${EXPECTED_RETURN_VALUE}" "${EXPECTED_STDERR_VALUE}" "" "${@}"
 }
+
 
 # # Calling convention:
 # #  test_function function_name expected_return expected_stdout expected_stderr
@@ -299,6 +313,7 @@ function test_function_return_and_stdout {
 #                               "${ACTUAL_RETURN_VALUE}"   "${ACTUAL_STDOUT_VALUE}"   "${ACTUAL_STDERR_VALUE}"
 #     fi
 # }
+
 
 function test_stats {
     local TOTAL_TEST_COUNT

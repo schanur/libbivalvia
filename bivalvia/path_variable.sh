@@ -16,6 +16,7 @@ function file_sets_path_variable {
     fi
 }
 
+
 # Checks if the $SHELL.rc file sets a PATH contains a directory.
 # Parameter:
 #   1) $SHELL.rc file name.

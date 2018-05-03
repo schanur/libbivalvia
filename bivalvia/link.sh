@@ -9,6 +9,7 @@ function ln_support_relative_linking {
     (ln --help |grep "\-r" || true) |wc -l
 }
 
+
 # Print link target to stdout.
 function link_target {
     local LINK_NAME="${1}"
@@ -17,6 +18,7 @@ function link_target {
 
     ls -la "${LINK_NAME}" |sed -e 's/.*\ ->\ //g'
 }
+
 
 # Returns the absolute path/filename of a link target. This works no
 # matter the link target is already absolute or relative to the path
@@ -42,6 +44,7 @@ function absolute_link_target {
 
 #     echo ${ABS_LINK_TARGET}
 # }
+
 
 # Prints "1" if the symbolic link ($1) targets the file/directory
 # ($2). "0" otherwise.
@@ -72,6 +75,7 @@ function links_to_target {
     echo ${FUNCTION_LINKS_TO_TARGET}
 }
 
+
 function create_link {
     local LINK_TARGET="${1}"
     local LINK_NAME="${2}"
@@ -81,6 +85,7 @@ function create_link {
     echo "${CMD}"
     ${CMD}
 }
+
 
 # If file or directory with "${LINK_NAME}" exists, rename it to
 # "${LINK_NAME}.dotfiles_backup". Create a symbolic link with the name
@@ -134,6 +139,7 @@ function backup_config_and_create_link {
     fi
 }
 
+
 # Does the same as "backup_config_and_create_link" but interpret
 # "§{LINK_TARGET}" relative to dotfiles repository and ${LINK_NAME}
 # relative to the home directory of the user runncing the script.
@@ -146,6 +152,7 @@ function backup_user_config_and_create_dotfiles_link {
 
     backup_config_and_create_link "${ABSOLUTE_LINK_TARGET}" "${ABSOLUTE_LINK_NAME}"
 }
+
 
 if [ $(ln_support_relative_linking) = "1" ]; then
     GL_RELATIVE_LINKING_SWITCH="-r"

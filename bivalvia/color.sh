@@ -17,11 +17,13 @@ function color_name_to_color_code {
     echo ${COLOR_TABLE["${COLOR_NAME}"]}
 }
 
+
 function color_escape_sequence {
     local COLOR_NAME="${1}"
 
     echo -ne "\033[$(color_name_to_color_code ${COLOR_NAME})m"
 }
+
 
 function with_color {
     local COLOR_NAME="${1}"

@@ -18,11 +18,13 @@ function remember_loaded {
     not_implemented_error
 }
 
+
 # Returns 1 if a config file was already loaded. 0 otherwise.
 function already_loaded {
     # TODO: Implement!
     echo "0"
 }
+
 
 function set_config_path {
     local NEW_CONFIG_PATH="${1}"
@@ -31,6 +33,7 @@ function set_config_path {
 
     CONFIG_PATH="${NEW_CONFIG_PATH}"
 }
+
 
 # Replaces the hostname as profile subpath with a string provides as
 # first parameter. This is currently for unit tests only. But maybe we
@@ -41,6 +44,7 @@ function set_config_hostname {
     CONFIG_HOSTNAME="${NEW_CONFIG_HOSTNAME}"
 }
 
+
 function profile_path {
     require_directory "${CONFIG_PATH}"
 
@@ -50,6 +54,7 @@ function profile_path {
     echo "${PROFILE_PATH}"
 }
 
+
 function global_path {
     require_directory "${CONFIG_PATH}"
 
@@ -57,6 +62,7 @@ function global_path {
 
     echo "${GLOBAL_PATH}"
 }
+
 
 function profile_config_filename {
     local RELATIVE_CONFIG_FILENAME="${1}"
@@ -66,6 +72,7 @@ function profile_config_filename {
     echo "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
+
 function global_config_filename {
     local RELATIVE_CONFIG_FILENAME="${1}"
     local GLOBAL_PATH="$(global_path)"
@@ -73,6 +80,7 @@ function global_config_filename {
 
     echo "${ABSOLUTE_CONFIG_FILENAME}"
 }
+
 
 function profile_config_file_exists {
     local ABSOLUTE_CONFIG_FILENAME="$(profile_config_filename ${1})"
@@ -85,6 +93,7 @@ function profile_config_file_exists {
     echo ${CONTAINS_CONFIG_FILE}
 }
 
+
 function global_config_file_exists {
     local ABSOLUTE_CONFIG_FILENAME="$(global_config_filename ${1})"
     local CONTAINS_CONFIG_FILE=0
@@ -95,6 +104,7 @@ function global_config_file_exists {
 
     echo ${CONTAINS_CONFIG_FILE}
 }
+
 
 function config_file_exists {
     local RELATIVE_CONFIG_FILENAME="${1}"
@@ -108,6 +118,7 @@ function config_file_exists {
 
     echo ${CONFIG_FILE_EXISTS}
 }
+
 
 function absolute_config_file {
     local RELATIVE_CONFIG_FILENAME="${1}"
@@ -126,6 +137,7 @@ function absolute_config_file {
     echo "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
+
 function load_config_file {
     local RELATIVE_CONFIG_FILENAME="${1}"
     local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file "${RELATIVE_CONFIG_FILENAME}")"
@@ -134,6 +146,7 @@ function load_config_file {
 
     source "${ABSOLUTE_CONFIG_FILENAME}"
 }
+
 
 function load_config_file_once {
     local RELATIVE_CONFIG_FILENAME="${1}"
@@ -144,6 +157,7 @@ function load_config_file_once {
     source "${ABSOLUTE_CONFIG_FILENAME}"
 }
 
+
 function load_config_file_if_exists {
     local RELATIVE_CONFIG_FILENAME="${1}"
     local ABSOLUTE_CONFIG_FILENAME="$(absolute_config_file ${RELATIVE_CONFIG_FILENAME})"
@@ -152,6 +166,7 @@ function load_config_file_if_exists {
         source "${ABSOLUTE_CONFIG_FILENAME}"
     fi
 }
+
 
 function load_config_file_if_exists_once {
     local RELATIVE_CONFIG_FILENAME="${1}"

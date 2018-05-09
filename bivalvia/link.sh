@@ -1,6 +1,7 @@
 BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 source "${BIVALVIA_PATH}/date.sh"
+source "${BIVALVIA_PATH}/error.sh"
 source "${BIVALVIA_PATH}/require.sh"
 source "${BIVALVIA_PATH}/path.sh"
 
@@ -87,6 +88,24 @@ function create_link {
 }
 
 
+function backup_and_create_link_result_string
+{
+    local RETURN_CODE="${1}"
+
+    case "${RETURN_CODE}" in
+        1) echo "No action required. Already links to the desired destination."             ;;
+        2) echo "Link exists but targets the wrong file. Backup and replace with new link." ;;
+        3) echo "Found original config. Backup and replace with link"                       ;;
+        4) echo "Found no config at all. Create new link without creating backup."          ;;
+        *)
+            # TODO: Use error.sh:bad_param_error
+            echo "Invalid parameter"
+            exit 1
+            ;;
+    esac
+}
+
+
 # If file or directory with "${LINK_NAME}" exists, rename it to
 # "${LINK_NAME}.dotfiles_backup". Create a symbolic link with the name
 # "${LINK_NAME}" targeting ""{LINK_TARGET}" afterwards.
@@ -98,38 +117,37 @@ function backup_config_and_create_link {
     local BACKUP_OLD_FILE=0
     local CREATE_LINK=0
 
-
     if [ -L "${LINK_NAME}" ]; then
-        echo "Link filename already exists: ${LINK_NAME}"
-        echo "Is symbolic link"
+        # echo "Link filename alreday exists: ${LINK_NAME}"
+        # echo "Is symbolic link"
         require_file_or_directory "${LINK_TARGET}"
 
         FUNCTION_LINKS_TO_TARGET=$(links_to_target "${LINK_TARGET}" "${LINK_NAME}")
         if [ "${FUNCTION_LINKS_TO_TARGET}" = "1" ]; then
-            echo "Ignore ${LINK_NAME}. Already links to the desired destination."
+            RETURN_CODE=1
         else
-            echo "Link exists but targets the wrong file."
             CREATE_LINK=1
             BACKUP_OLD_FILE=1
+            RETURN_CODE=2
         fi
     fi
 
     if [ -e "${LINK_NAME}" -a ! -L "${LINK_NAME}" ]; then
-            echo "Found original config."
-            CREATE_LINK=1
-            BACKUP_OLD_FILE=1
+        CREATE_LINK=1
+        BACKUP_OLD_FILE=1
+        RETURN_CODE=3
     fi
 
     if [ ! -e "${LINK_NAME}" -a ! -L "${LINK_NAME}" ]; then
-            echo "Found no config at all. Create new link without creating backup."
-            CREATE_LINK=1
+        CREATE_LINK=1
+        RETURN_CODE=4
     fi
 
-    if [ "${BACKUP_OLD_FILE}" = "1" ]; then
+    if [ ${BACKUP_OLD_FILE} -eq 1 ]; then
         echo "Backup: ${LINK_NAME} -> ${BACKUP_NAME}"
         mv "${LINK_NAME}" "${BACKUP_NAME}"
     fi
-    if [ ${CREATE_LINK} = "1" ]; then
+    if [ ${CREATE_LINK} -eq 1 ]; then
         if [ ! -d "${LINK_NAME_BASE_PATH}" ]; then
             echo "Link source base path does not exist. Create directory: ${LINK_NAME_BASE_PATH}"
             mkdir -p "${LINK_NAME_BASE_PATH}"

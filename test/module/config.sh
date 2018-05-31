@@ -19,10 +19,10 @@ PROFILE_AND_GLOBAL_CONFIG_FILE="${PROFILE_AND_GLOBAL_CONFIG_PATH}/profile/${TEST
 PROFILE_CONFIG_FILE="${PROFILE_CONFIG_PATH}/profile/${TEST_HOSTNAME}/test.conf"
 
 
-set_config_hostname ${TEST_HOSTNAME}
+set_config_hostname "${TEST_HOSTNAME}"
 
 
-set_config_path ${GLOBAL_CONFIG_PATH}
+set_config_path "${GLOBAL_CONFIG_PATH}"
 
 test_function_stdout global_config_file_exists     1 test.conf
 test_function_stdout profile_config_file_exists    0 test.conf
@@ -33,7 +33,7 @@ test_function_stdout absolute_config_file          "${GLOBAL_CONFIG_FILE}" test.
 unset TEST_VAR
 
 
-set_config_path ${NO_CONFIG_PATH}
+set_config_path "${NO_CONFIG_PATH}"
 
 test_function_stdout global_config_file_exists     0 test.conf
 test_function_stdout profile_config_file_exists    0 test.conf
@@ -42,7 +42,7 @@ test_function_stdout config_file_exists            0 test.conf
 unset TEST_VAR
 
 
-set_config_path ${PROFILE_AND_GLOBAL_CONFIG_PATH}
+set_config_path "${PROFILE_AND_GLOBAL_CONFIG_PATH}"
 
 test_function_stdout global_config_file_exists     1 test.conf
 test_function_stdout profile_config_file_exists    1 test.conf
@@ -53,7 +53,7 @@ test_function_stdout absolute_config_file          "${PROFILE_AND_GLOBAL_CONFIG_
 unset TEST_VAR
 
 
-set_config_path ${PROFILE_CONFIG_PATH}
+set_config_path "${PROFILE_CONFIG_PATH}"
 
 test_function_stdout global_config_file_exists     0 test.conf
 test_function_stdout profile_config_file_exists    1 test.conf

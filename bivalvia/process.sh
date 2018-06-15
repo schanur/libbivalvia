@@ -9,8 +9,8 @@ function child_pid {
 }
 
 
-function pid_to_command {
-    local PID=${1}
+# function pid_to_command {
+#     local PID=${1}
 
-    ps x | tr -s -s ' ' |egrep "^${PID} " | cut -f 5-1000 -d ' '
-}
+#     ps x | tr -s -s ' ' | egrep "^${PID} " | cut -f 5-1000 -d ' '
+# }

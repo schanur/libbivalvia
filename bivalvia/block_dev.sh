@@ -30,3 +30,15 @@ function mount_luks_dev_by_key_file {
 function unmount_luks_dev {
     true
 }
+
+
+# Prints the block device /dev/sdX of the disk drive or partition
+# where the file is located. Both directories and regular files are
+# allowed. Only the first step gets resolved. If the result is a
+# loopback device it does not get resolved to the corresponding block
+# device or file behind that.
+function filename_to_block_device {
+    local FILENAME="${1}"
+
+    df "${FILENAME}" | tail -n 1 | tr -s " " | cut -f 1 -d " "
+}

@@ -7,7 +7,13 @@ function list_size {
     local LIST="${1}"
     local LIST_SIZE
 
-    LIST_SIZE=$(echo -ne "${LIST}" | wc -l)
+
+    if [ "${LIST}" = "" ]; then
+        LIST_SIZE=0
+    else
+        LIST_SIZE=$(echo -ne "${LIST}" | wc -l)
+        (( LIST_SIZE++ ))
+    fi
 
     echo ${LIST_SIZE}
 }
@@ -26,9 +32,9 @@ function list_is_empty {
 
 
 function list_count_value {
-    local NEEDLE="${1}"
+    local LIST="${1}"
+    local NEEDLE="${2}"
 
-    local LIST="${2}"
     local VALUE_COUNT=0
 
     for VALUE in $(echo "${LIST}" |sed -e 's/\\n/\ /g'); do
@@ -41,8 +47,16 @@ function list_count_value {
 }
 
 
-function list_has_value {
-    true
+function list_contains {
+    local LIST="${1}"
+    local SEARCH_STR="${2}"
+    local LIST_CONTAINS_STR=0
+
+    if [ $(list_count_value "${LIST}" "${SEARCH_STR}") -ne 0 ]; then
+        LIST_CONTAINS_STR=1
+    fi
+
+    echo ${LIST_CONTAINS_STR}
 }
 
 
@@ -52,10 +66,16 @@ function list_new {
 
 
 function list_add {
-            local LIST_1="${1}"
-            local LIST_2="${2}"
+    local LIST_1="${1}"
+    local LIST_2="${2}"
+    local LAST_CHAR
+    local NEWLINE_AT_END=0
 
-            echo "${LIST_1}${LIST_2}"
+    if [ $(list_is_empty "${LIST_1}") -eq 0 ]; then
+        echo -e "${LIST_1}\n${LIST_2}"
+    else
+        echo -e "${LIST_2}"
+    fi
 }
 
 

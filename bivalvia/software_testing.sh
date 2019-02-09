@@ -2,7 +2,7 @@ BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 
 source "${BIVALVIA_PATH}/color.sh"
 source "${BIVALVIA_PATH}/date.sh"
-source "${BIVALVIA_PATH}/debug.sh" # FIXME: Remove
+source "${BIVALVIA_PATH}/debug.sh"
 source "${BIVALVIA_PATH}/numerical.sh"
 source "${BIVALVIA_PATH}/string.sh"
 
@@ -78,10 +78,10 @@ function print_comparison_in_plaintext_and_hex {
     echo "${EXPECT_DESC}: >> ${EXPECT_VALUE} <<"
     echo "${ACTUAL_DESC}: >> ${ACTUAL_VALUE} <<"
 
-    echo "${EXPECT_DESC}:"
-    echo "${EXPECT_VALUE}" | hexdump -C
-    echo "${ACTUAL_DESC}:"
-    echo "${ACTUAL_VALUE}" | hexdump -C
+    echo    "${EXPECT_DESC}:"
+    echo -n "${EXPECT_VALUE}" | hexdump -C
+    echo    "${ACTUAL_DESC}:"
+    echo -n "${ACTUAL_VALUE}" | hexdump -C
 }
 
 
@@ -104,6 +104,8 @@ function describe_test_failure {
     if [ "${EXPECTED_STDERR_VALUE}"  != "${ACTUAL_STDERR_VALUE}" ]; then
         print_comparison_in_plaintext_and_hex "Expected stderr value" "${EXPECTED_STDERR_VALUE}" "Actual stderr value" "${ACTUAL_STDERR_VALUE}"
     fi
+
+    stack_trace
 }
 
 

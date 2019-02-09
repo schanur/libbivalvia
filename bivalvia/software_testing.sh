@@ -138,7 +138,7 @@ function test_string_equal_with_duration {
 
     # Print test result.
     with_color yellow "test_status:"
-    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) $(test_duration))"
+         echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) \($(test_duration) ms\))"
 }
 
 
@@ -203,7 +203,7 @@ function test_function {
 
     # Print test result.
     with_color yellow "test_status:"
-    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) ${TEST_DURATION})"
+    echo " $(with_color ${TEST_STATUS_COLOR} $(fill_tail ${GL_TEST_MAX_STATUS_STR_LEN} ' ' ${TEST_STATUS_STR}) \(${TEST_DURATION} ms\))"
 
     if [ ${TEST_SUCC} -eq 0 ]; then
         describe_test_failure ${FUNCTION_NAME} \

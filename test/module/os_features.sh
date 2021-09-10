@@ -14,6 +14,9 @@ case "$(distribution_pretty_name)" in
     "Debian GNU/Linux buster/sid")
         true
         ;;
+    "Debian GNU/Linux bookworm/sid")
+        true
+        ;;
     *)
         echo "Unknown distribution. Cannot test os_features module." >&2
         exit 1

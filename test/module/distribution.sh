@@ -38,6 +38,7 @@ function os_release_pretty_name_known {
 
     (echo "
 Debian GNU/Linux buster/sid
+Debian GNU/Linux bookworm/sid
 " | grep -e "^${OS_RELEASE_ID}$") > /dev/null || ID_KNOWN=0
 
     echo ${ID_KNOWN}

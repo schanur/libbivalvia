@@ -3,6 +3,8 @@ BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 # source "${BIVALVIA_PATH}/config.sh"
 # source "${BIVALVIA_PATH}/require.sh"
 
+#Debug
+source "${BIVALVIA_PATH}/debug.sh"
 
 # Allowed message level:
 # 0: emerg
@@ -14,6 +16,9 @@ BIVALVIA_PATH="$(dirname "${BASH_SOURCE[0]}")"
 # 6: info
 # 7: debug
 # 8: trace
+
+# if no message level was set by using "msg_set_level" function,
+# "info" message level is used.
 
 
 MSG_MAX_LEVEL_NUM=6
@@ -137,20 +142,35 @@ function msg_num_to_formated_msg_level_str {
 function msg {
     local MSG_LEVEL_STR="${1}"
     local MSG_LEVEL_NO="$(msg_level_str_to_number ${MSG_LEVEL_STR})"
-    local MSG_MIN_LEVEL_NUM
+    # local MSG_MIN_LEVEL_NUM
+    local MSG
     shift
-    local MSG="${*}"
+    if [ ${#} -ne 0 ]; then
+        MSG="${*}"
+    else
+        MSG=""
+    fi
 
+    # If no message level was set, use "info" as default.
+    if [[ ! -v "${MSG_MAX_LEVEL_NUM}" ]]; then
+        true
+        # msg_set_level "tra"
+    fi
+    # echo ":::MSG_MAX_LEVEL_NUM: ${MSG_MAX_LEVEL_NUM}"
+    # echo "---${MSG_LEVEL_NO} -le ${MSG_MAX_LEVEL_NUM}///"
+    # echo
+    # stack_trace
     if [ ${MSG_LEVEL_NO} -le ${MSG_MAX_LEVEL_NUM} ]; then
+        # echo "+++"
         case ${MSG_LEVEL_NO} in
             0)
-                echo "$(msg_num_to_formated_msg_level_str ${MSG_LEVEL_NO})${MSG_LEVEL_STR}"
+                echo "$(msg_num_to_formated_msg_level_str ${MSG_LEVEL_NO}): ${MSG_LEVEL_STR}: ${MSG}"
                 ;;
             1|2|3)
-                echo "$(msg_num_to_formated_msg_level_str ${MSG_LEVEL_NO})${MSG_LEVEL_STR}"
+                echo "$(msg_num_to_formated_msg_level_str ${MSG_LEVEL_NO}): ${MSG_LEVEL_STR}: ${MSG}"
                 ;;
             4|5|6|7|8)
-                echo "$(msg_num_to_formated_msg_level_str ${MSG_LEVEL_NO})${MSG_LEVEL_STR}"
+                echo "$(msg_num_to_formated_msg_level_str ${MSG_LEVEL_NO}): ${MSG_LEVEL_STR}: ${MSG}"
                 ;;
             *)
                 msg err "Invalid message level no: ${MSG_LEVEL_NO}"

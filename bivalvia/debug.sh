@@ -23,10 +23,10 @@ function stack_trace {
 
         # echo ${I} ${FUNC} ${SRC} ${LINE_NO} >&2
 
-        (fill_ellipsis_tail   3 ' ' "${I}"         && echo -n " ") >&2
-        (fill_ellipsis_tail  30 ' ' "${FUNC}"      && echo -n " ") >&2
-        (fill_ellipsis_front 40 ' ' "${SRC}"       && echo -n " ") >&2
-        (fill_ellipsis_front  5 ' ' "${LINE_NO}"   && echo       ) >&2
+        (fill_ellipsis_tail   3 ' ' "${I}"         && echo -n " ")
+        (fill_ellipsis_tail  30 ' ' "${FUNC}"      && echo -n " ")
+        (fill_ellipsis_front 40 ' ' "${SRC}"       && echo -n " ")
+        (fill_ellipsis_front  5 ' ' "${LINE_NO}"   && echo       )
 
     done
 }

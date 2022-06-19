@@ -46,7 +46,9 @@ function require_parameters_not_empty {
 }
 
 
-# Check if the binary/script filename exists in a path specified in the PATH variable. If no match is found, an error message is printed to stderr and the script terminates with an error.
+# Check if the binary/script filename exists in a path specified in
+# the PATH variable. If no match is found, an error message is printed
+# to stderr and the script terminates with an error.
 function require_executable {
     require_parameters_not_empty ${*}
 

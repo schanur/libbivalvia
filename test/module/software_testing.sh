@@ -9,8 +9,14 @@ function print_abc {
     echo "abc"
 }
 
+
 function do_nothing {
     true
+}
+
+
+function echo_stdin {
+    echo "${1}"
 }
 
 
@@ -23,8 +29,13 @@ test_string_equal               "-1" "-1"                                       
 test_string_equal               "1234567890+asdfghjkl#yxcvbnm,.-" "1234567890+asdfghjkl#yxcvbnm,.-"   "Compare special chars. No duration."
 
 
-test_function                   print_abc  0 "abc" ""
+test_function                   print_abc  0 "abc"  ""
 
 test_function_return            do_nothing 0
 test_function_stdout            print_abc    "abc"
-test_function_stdout            print_abc    "abc" "def"
+test_function_stdout            print_abc    "abc"  "def"
+
+
+# TODO: software testing functions cut off newline at end of string if
+# printed to stdout. But it is not that important.
+test_function_stdout            echo_stdin   $'a\n' $'a\n'

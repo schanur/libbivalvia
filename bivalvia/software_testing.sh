@@ -259,6 +259,16 @@ function test_function_return_and_stdout {
 }
 
 
+function test_condition {
+    true
+}
+
+
+function test_path_exists {
+    true
+}
+
+
 # # Calling convention:
 # #  test_function function_name expected_return expected_stdout expected_stderr
 # function test_function_manual {

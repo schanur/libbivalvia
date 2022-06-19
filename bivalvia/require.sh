@@ -132,7 +132,7 @@ function require_variable {
     local VARIABLE_NAME="${1}"
 
     if [ ! -v "${VARIABLE_NAME}" ]; then
-        require_failed "Variable not set: ${LINK_NAME}"
+        require_failed "Variable not set: ${VARIABLE_NAME}"
     fi
 }
 

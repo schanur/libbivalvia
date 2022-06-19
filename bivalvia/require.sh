@@ -155,6 +155,23 @@ function require_numeric_value {
 }
 
 
+# Require that the first parameter is equal to the second
+# parameter.
+function require_numeric_equal {
+    require_parameters_not_empty ${*}
+
+    local ACTUAL_VALUE=${1}
+    local CMP_VALUE=${2}
+
+    require_numeric_value ${ACTUAL_VALUE}
+    require_numeric_value ${CMP_VALUE}
+
+    if [ ${ACTUAL_VALUE} -lt ${CMP_VALUE} ]; then
+        require_failed "Variable is not equal to expected value: ${ACTUAL_VALUE} <-> ${CMP_VALUE}"
+    fi
+}
+
+
 # Require that the first parameter is equal or larger than the second
 # parameter.
 function require_larger_equal {

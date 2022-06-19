@@ -5,6 +5,9 @@ source "${BIVALVIA_PATH}/error.sh"
 source "${BIVALVIA_PATH}/require.sh"
 source "${BIVALVIA_PATH}/path.sh"
 
+# Debugging.
+source "${BIVALVIA_PATH}/message.sh"
+
 
 function ln_support_relative_linking {
     (ln --help |grep "\-r" || true) |wc -l
@@ -109,7 +112,11 @@ function backup_and_create_link_result_string
 # If file or directory with "${LINK_NAME}" exists, rename it to
 # "${LINK_NAME}.dotfiles_backup". Create a symbolic link with the name
 # "${LINK_NAME}" targeting ""{LINK_TARGET}" afterwards.
+# Parameter order is the same as the "ln" binary. First parameter is
+# the target and the second parameter is the link name.
 function backup_config_and_create_link {
+    require_numeric_equal ${#} 2
+
     local LINK_TARGET="${1}"
     local LINK_NAME="${2}"
     local LINK_NAME_BASE_PATH="$(dirname "${LINK_NAME}")"
@@ -155,6 +162,9 @@ function backup_config_and_create_link {
         echo "Create link."
         create_link "${LINK_TARGET}" "${LINK_NAME}"
     fi
+
+    msg info ${CREATE_LINK}
+    msg info $(backup_and_create_link_result_string ${RETURN_CODE})
 }
 
 
